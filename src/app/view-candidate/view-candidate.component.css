@@ -212,18 +212,10 @@
 .modal-body {
   text-align: center;
   padding: 20px;
-  font-size: 13px;
 }
 
 .modal-footer {
   justify-content: center;
-}
-
-.modal-footer button{
-  height: 30px;
-  font-size: medium;
-  font-style: inherit;
-  font-weight: normal;
 }
 
 .search-dropdown1 {
@@ -271,107 +263,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-/* For Checkbox and Label Alignment */
-.modal-body div {
-  display: flex;
-  align-items: center;
-}
- 
-/* For Modal Header Styling */
-.modal-header {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-}
- 
-/* For Overflow Issue */
-/* Note: Adjust the width and height values based on your design */
- 
-/* For Input Box Styling in Modal Header */
-#input-box {
-  margin-bottom: 10px;
-}
- 
-/* For Table Styling */
-.table {
-  width: 100%;
-  /* Add any additional styles as needed */
-}
- 
-/* For Responsive Design */
-/* Adjust styles based on your specific breakpoints */
-@media (max-width: 768px) {
-  /* Your responsive styles here */
-}
- 
-/* Optional: Increase specificity for Bootstrap styles */
-.modal-body .table {
-  margin-bottom: 0;
-}
- 
-/* Optional: Adjust styling for other specific elements */
-.content-div {
-  width: 100%;
-}
- 
- 
-/* For Checkbox and Label Alignment and Size */
-.modal-body div {
-  display: flex;
-  align-items:flex-start;
-  margin-bottom: 10px; /* Add margin for better spacing */
-}
-
-.checkbox-container {
-  display: flex;
-  flex-direction: column;
-}
- 
-.modal-body input[type="checkbox"] {
-  width: 20px; /* Adjust width as needed */
-  height: 20px; /* Adjust height as needed */
-  margin-right: 5px; /* Add margin for spacing between checkbox and label */
-}
- 
-.modal-body label {
-  margin-bottom: 0; /* Remove default margin for better alignment */
-}
- 
-/* Optional: Increase specificity for Bootstrap styles */
-.modal-body .table {
-  margin-bottom: 0;
-}
-/* Adjust the size of the modal content */
-.modal-content {
-  width: 100%;
-  height: 100% /* Set the desired width, adjust as needed */
-}
- 
-/* Adjust the size of the modal body */
-.modal-body {
-  max-height: calc(80vh - 120px)!important; /* Set the desired maximum height, adjust as needed */
-  overflow-y: auto!important; /* Add vertical scrollbar if needed */
-}
- 
-/* Optional: Increase specificity for Bootstrap styles */
-.modal-body .table {
-  margin-bottom: 0!important;
-}
-
-.input-group input {
-  height: 25px;
-  font-size: 13px;
-  width: 200px;
-}
-
-.input-group button {
-  height: 25px;
-  background-color: rgb(216, 216, 216);
-  color: rgb(128, 122, 122);
-  padding: 5px 5px;
-  border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
 }
