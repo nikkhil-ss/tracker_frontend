@@ -1,0 +1,142 @@
+/* Style the container */
+app-dashboard{
+  width: 1000px;
+}
+.container {
+  width: 100%;
+  display: inline-table;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+/* Style the form section */
+form {
+  margin-bottom: 20px;
+}
+
+/* Style the label for the search criteria dropdown */
+label[for="searchBy"] {
+  font-weight: bold;
+}
+
+/* Style the search criteria dropdown */
+#searchBy {
+  width: 150px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+/* Style the search input */
+label[for="searchValue"] {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+input#searchValue {
+  width: 200px;
+  padding: 5px;
+}
+
+/* Style the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style the table header */
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Style the table rows */
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Style alternate rows with a different background color */
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover effect on rows */
+.table tbody tr:hover {
+  background-color: #ddd;
+}
+
+/* Style the Search button */
+button {
+  background-color: #007BFF; /* Blue background color */
+  color: #fff; /* White text color */
+  padding: 10px 20px; /* Padding around the button text */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Style the Search button on hover */
+button:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+
+
+.view-attachment-button {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+.attachment-modal{
+ align-content: center;
+}
+
+
+/* Style for the modal content */
+.modal-content {
+border-radius: 10px;
+width: 70%; /* Set the width to 70% of the screen */
+margin: 0 auto; /* Center horizontally */
+max-height: 70vh; /* Set the maximum height to 70% of the viewport height */
+/* overflow-y: auto; Add vertical scrollbar if content exceeds the maximum height */
+z-index: 1050; 
+}
+
+/* Style for the modal body (adjust as needed) */
+.modal-body {
+text-align: center;
+padding: 20px;
+}
+
+/* Style for the modal footer (adjust as needed) */
+.modal-footer {
+justify-content: center;
+}
+
+/* Style to position the modal at the center of the screen */
+.modal {
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1040; /* Ensure the modal is above other elements */
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+opacity: 0; /* Initially hidden */
+pointer-events: none; /* Initially hidden, but allows clicks on modal when shown */
+transition: opacity 0.3s ease;
+}
+
+.modal.show {
+opacity: 1; /* Show the modal */
+pointer-events: auto; /* Enable interaction with the modal */
+}

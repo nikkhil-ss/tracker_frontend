@@ -1,0 +1,389 @@
+<div class="container">
+
+    <app-dashboard></app-dashboard>
+
+    <!-- Filter -->
+    <div class="search-dropdown1" style="display: flex; flex-direction: row; align-items: center;">
+        <label class="dropdown-label" for="dropdown">Filters:</label>
+        <select id="dropdown" [(ngModel)]="selectedValue" style="display: flex; height: 30px;">
+            <option value="">Select Candidates</option>
+            <option value="baselineDate">Baseline date</option>
+            <option value="initialBu">Initial BU</option>
+            <option value="empId">Emp Id</option>
+            <option value="employeeName">Employee Name</option>
+            <option value="email">Email</option>
+            <option value="localGrade">Local Grade</option>
+            <option value="currentDayStatus">Current Day Status</option>
+            <option value="mainProject">Main Project</option>
+            <option value="accountName">Account Name</option>
+            <option value="trainingBatchId">Training Batch Id</option>
+            <option value="mentorName">Mentor Name</option>
+            <option value="trainingScoreFeedback">Training score/feedback</option>
+            <option value="bucket">Bucket</option>
+            <option value="qualitativeFeedback">Qualitative feedback/Mentor Feedback</option>
+            <option value="oceanAttemptedTillDate">Ocean attempted till date</option>
+            <option value="oceanScoreIfAttempted">Ocean Score if attempted</option>
+            <option value="hsCertificationDone">HS Certification Done?</option>
+            <option value="digiDashboardUpdatedRegularly">Digi Dashboard updated Regularly?</option>
+            <option value="accountShadowsDone">Any account shadows done</option>
+            <option value="currentStatus">Current status</option>
+            <option value="upskillingWhileOnBench">Additional upskilling while on bench</option>
+            <option value="currentInitiativeInvolvedIn">Current initiative involved in</option>
+            <option value="workDoneLast3Months">Any work done in last 3 month (hands on)</option>
+            <option value="personReachable">Is the person reachable</option>
+            <!-- <option value="">Mapping Pending - Slot unavailable</option> -->
+            <option value="pscRemarks">PSC Remarks</option>
+            <option value="btoAverageQ3Attendance">BTO (Average for Q3)_Attendance</option>
+            <option value="sapienceAvgLast3Months">Sapience avg for last 3 month</option>
+            <option value="leaveBalance">Leave balance</option>
+            <option value="leaveAppliedLast3Months">Amount of leave applied in last 3 month</option>
+            <option value="botpStatus">BOTP Status</option>
+            <option value="subStatus">Sub-Status</option>
+            <option value="college">College</option>
+            <option value="collegeType">College Type</option>
+            <option value="education">Education</option>
+            <option value="recruitmentSwarScore">Recruitment SWAR Score</option>
+            <option value="recruitmentAptitudeScore">Recruitment Aptitude Score</option>
+            <option value="recruitmentCodingScore">Recruitment Coding score</option>
+        </select>
+        <div
+            *ngIf="selectedValue === 'baselineDate' || selectedValue === 'initialBu' || selectedValue === 'empId' || selectedValue === 'employeeName' || selectedValue === 'email' || selectedValue === 'localGrade' || selectedValue === 'currentDayStatus' || selectedValue === 'mainProject' || selectedValue === 'accountName' || selectedValue === 'trainingBatchId' || selectedValue === 'mentorName' || selectedValue === 'trainingScoreFeedback' || selectedValue === 'bucket' || selectedValue === 'qualitativeFeedback' || selectedValue === 'oceanAttemptedTillDate' || selectedValue === 'oceanScoreIfAttempted' || selectedValue === 'hsCertificationDone' || selectedValue === 'digiDashboardUpdatedRegularly' || selectedValue === 'accountShadowsDone' || selectedValue === 'currentStatus' || selectedValue === 'upskillingWhileOnBench' || selectedValue === 'currentInitiativeInvolvedIn' || selectedValue === 'workDoneLast3Months' || selectedValue === 'personReachable' || selectedValue === 'pscRemarks' || selectedValue === 'btoAverageQ3Attendance' || selectedValue === 'sapienceAvgLast3Months' || selectedValue === 'leaveBalance' || selectedValue === 'leaveAppliedLast3Months' || selectedValue === 'botpStatus' || selectedValue === 'subStatus' || selectedValue === 'college' || selectedValue === 'collegeType' || selectedValue === 'education' || selectedValue === 'recruitmentSwarScore' || selectedValue === 'recruitmentAptitudeScore' || selectedValue === 'recruitmentCodingScore'">
+            <label for="additionalInput"></label>
+            <input type="text" style="border-radius: 20px; border-width: 2px; height: 30px;" class="form-control py-2 k"
+                [(ngModel)]="searchText" placeholder="enter text" (keyup.enter)="search()" />
+        </div>
+
+        <div>
+
+
+            <button class="btn btn-outline-secondary buttons" style="height: 30px; width: 65px;"
+                (keydown.enter)="search()" (click)="search()">
+                <i class="fas fa-times"></i>Search
+            </button>
+
+
+        </div>
+    </div>
+    <!-- End of filterdiv -->
+
+    <div style="">
+
+        <table class="table">
+            <thead class="sticky-row ">
+                <tr>
+                    <th>
+                        <div class="headerDiv">Sr.No</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">BaseLine Date </div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Initial BU</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Emp Id</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Emp Name</div>
+                    </th>
+                    <th class="sticky-column">
+                        <div class="headerDiv">E-mail</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Local Grade</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Current Day Status</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Main Project</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Account Name</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Training Batch Id</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Mentor Name</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Training Score Feedback</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Bucket</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Qualitative Feedback</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Ocean Attempted Till Date</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Ocean Score If Attempted</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">HS Certification Done</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Digi Dashboard Updated Regularly</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Account Shadows Done</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Current Status</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Upskilling While On Bench</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Current Initiative Involved In</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Work Done Last 3 Months</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Person Reachable</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">PSC Remarks</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">BTO (Average for Q3) Attendance</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Sapience Avg for Last 3 Months</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Leave Balance</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Leaves Applied in Last 3 Months</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">BOTP Status</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Sub-Status</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">College</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">College Type</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Education</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Recruitment Swar Score</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Recruitment Aptitude Score</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Recruitment Coding Score</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let candidate of searchservice.filteredCandidates let i = index"
+                    [ngClass]="{'colour-change': candidate.initialBu !== 'Apps NA'}">
+                    <td><span>{{i + 1}}</span></td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.baselineDate |
+                            date:'dd/MM/yyyy'
+                            }}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.initialBu}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.empId}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.employeeName}}</span>
+
+                    </td>
+                    <td class="sticky-column">
+                        <span>{{candidate.email}}</span>
+                        <div *ngIf="candidate.isEdit" class="save-button-container">
+                            <button type="submit" (click)="save(candidate)" class="buttons save-button">Save</button>
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.localGrade}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.currentDayStatus}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.mainProject}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.accountName}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.trainingBatchId}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.mentorName}}</span>
+
+                    </td>
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.trainingScoreFeedback}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.bucket}}</span>
+
+                    </td>
+                    <td>
+                        <div style="width: 350px;
+                overflow: auto;
+                white-space: nowrap;">
+                            <span *ngIf="!candidate.isEdit">{{candidate.qualitativeFeedback}}</span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.oceanAttemptedTillDate}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.oceanScoreIfAttempted}}</span>
+
+                    </td>
+
+
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.hsCertificationDone}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.digiDashboardUpdatedRegularly
+                            | date:'dd/MM/yyyy'
+                            }}
+                        </span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.accountShadowsDone}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.currentStatus}}</span>
+
+                    </td>
+                    <td>
+                        <div style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+                            <span *ngIf="!candidate.isEdit">{{candidate.upskillingWhileOnBench}}</span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+                            <span *ngIf="!candidate.isEdit">{{candidate.currentInitiativeInvolvedIn}}</span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+                            <span *ngIf="!candidate.isEdit">{{candidate.workDoneLast3Months}}</span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.personReachable}}</span>
+
+                    </td>
+                    <td style="">
+                        <div style="width: 350px;
+                 overflow: auto;
+                 white-space: nowrap;
+                 
+                 ">
+                            <span *ngIf="!candidate.isEdit">{{candidate.pscRemarks}}</span>
+
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.btoAverageQ3Attendance}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.sapienceAvgLast3Months}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.leaveBalance}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.leaveAppliedLast3Months}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.botpStatus}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.subStatus}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.college}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.collegeType}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.education}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentSwarScore}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentAptitudeScore}}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentCodingScore}}</span>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only" id="loading"></span>
+            </div>
+        </div>
+    </div>
+</div>

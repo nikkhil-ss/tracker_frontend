@@ -1,0 +1,395 @@
+<ng-container *ngIf="getRole() === 'mentor'; else adminDashboard">
+  <app-dashboard></app-dashboard>
+</ng-container>
+<ng-template #adminDashboard>
+  <app-admindashboard></app-admindashboard>
+</ng-template>
+<div class="add-candidate-container">
+  <div style = "display: flex;flex-direction: row;  align-items: center;">
+ 
+    <a (click)="showFileInput = true" class = "importButton">Import Excel Candidate Data</a>
+    <button class="downloadButton" [class.downloading]="downloading" (click)="downloadExcelSample()">
+      <span *ngIf="downloading">Downloading.......</span>
+      <span *ngIf="!downloading">Download Sample Excel</span>
+    </button>
+ 
+  </div>
+    <div *ngIf="showFileInput">
+      <input type="file" (change)="onFileChange($event)" accept=".xlsx">
+      <button (click)="uploadFile()">Upload Excel</button>
+    </div>
+    <form #candidateForm="ngForm" (ngSubmit)="addCandidate()">
+      <table class="candidate-table">
+        <tr>
+          <th>Baseline Date *</th>
+          <th>Trainer Name *</th>
+          <th>Employee ID *</th>
+          <th>Employee Name *</th>
+          <th>Employee Email *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="date" [(ngModel)]="newCandidate.baselineDate" name="baselineDate" required
+            #baselineDate="ngModel" required [class.is-invalid]="baselineDate.invalid && baselineDate.touched">
+            <div *ngIf="baselineDate.errors && (baselineDate.invalid && baselineDate.touched)">
+              <small class="text-danger" *ngIf="baselineDate.errors['required']">Please fill required</small>
+            </div>
+
+           
+          </td>
+          <td>
+            <select [(ngModel)]="newCandidate.mentorName" name="mentorName" required 
+            #mentorName="ngModel" required [class.is-invalid]="mentorName.invalid && mentorName.touched" 
+            style="width: 160px; height: 20px;">
+            <div *ngIf="mentorName.errors && (mentorName.invalid && mentorName.touched)">
+              <small class="text-danger" *ngIf="mentorName.errors['required']">Please fill required</small>
+            </div>
+              <option value="Samruddhi">Samruddhi</option>
+              <option value="Amit">Amit</option>
+              <option value="Rashmi">Rashmi</option>
+              <option value="Snehal">Snehal</option>
+              <option value="Sasirekha">Sasirekha</option>
+              <option value="Shankar">Shankar</option>
+              <option value="Shanmugapriya">Shanmugapriya</option>
+              <option value="Shilpa">Shilpa</option>
+              <!-- Add more options as needed -->
+            </select>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.empId" name="empId" required
+            #empId="ngModel" required [class.is-invalid]="empId.invalid && empId.touched">
+            <div *ngIf="empId.errors && (empId.invalid && empId.touched)">
+              <small class="text-danger" *ngIf="empId.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.employeeName" name="employeeName" required
+            #employeeName="ngModel" required [class.is-invalid]="employeeName.invalid && employeeName.touched">
+            <div *ngIf="employeeName.errors && (employeeName.invalid && employeeName.touched)">
+              <small class="text-danger" *ngIf="employeeName.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="email" [(ngModel)]="newCandidate.email" name="email" required
+            pattern="^[a-zA-Z0-9._%+-]+@capgemini\.com$" #email="ngModel" required [class.is-invalid]="email.invalid && email.touched">
+            <div *ngIf="email.errors && (email.invalid && email.touched)">
+              <small class="text-danger" *ngIf="email.errors['required']">Please fill required</small>
+              <small class="text-danger" *ngIf="email.errors['pattern']">Enter a valid Email Id</small>
+            </div>
+          </td>
+        </tr>
+       
+        <br>
+        <br>
+        <tr>
+          <th>Local Grade *</th>
+          <th>Current Day Status *</th>
+          <th>Main Project *</th>
+          <th>Account Name *</th>
+          <th>Training Batch Id *</th>
+        </tr>
+        <tr>
+         
+          <td>
+            <select [(ngModel)]="newCandidate.localGrade" name="localGrade" required
+            #localGrade="ngModel" required [class.is-invalid]="localGrade.invalid && localGrade.touched">
+            <div *ngIf="localGrade.errors && (localGrade.invalid && localGrade.touched)">
+              <small class="text-danger" *ngIf="localGrade.errors['required']">Please fill required</small>
+            </div>
+              <option *ngFor="let option of localGradeOptions" [value]="option">{{ option }}</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.currentDayStatus" name="currentDayStatus" required
+            #currentDayStatus="ngModel" required [class.is-invalid]="currentDayStatus.invalid && currentDayStatus.touched">
+            <div *ngIf="currentDayStatus.errors && (currentDayStatus.invalid && currentDayStatus.touched)">
+              <small class="text-danger" *ngIf="currentDayStatus.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.mainProject" name="mainProject" required
+            #mainProject="ngModel" required [class.is-invalid]="mainProject.invalid && mainProject.touched">
+            <div *ngIf="mainProject.errors && (mainProject.invalid && mainProject.touched)">
+              <small class="text-danger" *ngIf="mainProject.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.accountName" name="accountName" required
+            #accountName="ngModel" required [class.is-invalid]="accountName.invalid && accountName.touched">
+            <div *ngIf="accountName.errors && (accountName.invalid && accountName.touched)">
+              <small class="text-danger" *ngIf="accountName.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.trainingBatchId" name="trainingBatchId" required
+            #trainingBatchId="ngModel" required [class.is-invalid]="trainingBatchId.invalid && trainingBatchId.touched">
+            <div *ngIf="trainingBatchId.errors && (trainingBatchId.invalid && trainingBatchId.touched)">
+              <small class="text-danger" *ngIf="trainingBatchId.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <th>Training Score/feedback *</th>
+          <th>Bucket *</th>
+          <th>Qualitative feedback/Mentor feedback *</th>
+          <th>Ocean attempted till date *</th>
+          <th>Ocean Score if attempted *</th>
+        </tr>
+        <tr>
+          <td>
+            <select [(ngModel)]="newCandidate.trainingScoreFeedback" name="trainingScoreFeedback" required 
+            #trainingScoreFeedback="ngModel" required [class.is-invalid]="trainingScoreFeedback.invalid && trainingScoreFeedback.touched" 
+            style="width: 160px; height: 20px;">
+            <div *ngIf="trainingScoreFeedback.errors && (trainingScoreFeedback.invalid && trainingScoreFeedback.touched)">
+              <small class="text-danger" *ngIf="trainingScoreFeedback.errors['required']">Please fill required</small>
+            </div>
+              <option value="Below Average">Below Average</option>
+              <option value="Average">Average</option>
+              <option value="Above Average">Above Average</option>
+              <option value="Good">Good</option>
+              <option value="Excellent">Excellent</option>
+              <option value="Resigned">Resigned</option>
+              <option value="Deployed">Deployed</option>
+              <option value="Other">Other</option>
+            </select>
+          </td>
+          <td>
+            <select [(ngModel)]="newCandidate.bucket" name="bucket" required 
+            #bucket="ngModel" required [class.is-invalid]="bucket.invalid && bucket.touched"
+            style="width: 160px; height: 20px;">
+            <div *ngIf="bucket.errors && (bucket.invalid && bucket.touched)">
+              <small class="text-danger" *ngIf="bucket.errors['required']">Please fill required</small>
+            </div>
+              <option value="5-10">5-10</option>
+              <option value="10-20">10-20</option>
+              <option value="20-30">20-30</option>
+              <option value="30-40">30-40</option>
+              <option value="40-50">40-50</option>
+              <option value="50-60">50-60</option>
+              <option value="60-70">60-70</option>
+              <option value="70-80">70-80</option>
+              <option value="80-90">80-90</option>
+              <option value="90-100">90-100</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.qualitativeFeedback" name="qualitativeFeedback" required
+            #qualitativeFeedback="ngModel" required [class.is-invalid]="qualitativeFeedback.invalid && qualitativeFeedback.touched">
+            <div *ngIf="qualitativeFeedback.errors && (qualitativeFeedback.invalid && qualitativeFeedback.touched)">
+              <small class="text-danger" *ngIf="qualitativeFeedback.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <select [(ngModel)]="newCandidate.oceanAttemptedTillDate" name="oceanAttemptedTillDate" required 
+            #oceanAttemptedTillDate="ngModel" required [class.is-invalid]="oceanAttemptedTillDate.invalid && oceanAttemptedTillDate.touched"
+            style="width: 160px; height: 20px;">
+            <div *ngIf="oceanAttemptedTillDate.errors && (oceanAttemptedTillDate.invalid && oceanAttemptedTillDate.touched)">
+              <small class="text-danger" *ngIf="oceanAttemptedTillDate.errors['required']">Please fill required</small>
+            </div>
+              <option value="Level 0">Level 0</option>
+              <option value="Level 1">Level 1</option>
+              <option value="Level 2">Level 2</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.oceanScoreIfAttempted" name="oceanScoreIfAttempted" required
+            #oceanScoreIfAttempted="ngModel" required [class.is-invalid]="oceanScoreIfAttempted.invalid && oceanScoreIfAttempted.touched">
+            <div *ngIf="oceanScoreIfAttempted.errors && (oceanScoreIfAttempted.invalid && oceanScoreIfAttempted.touched)">
+              <small class="text-danger" *ngIf="oceanScoreIfAttempted.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <th>HS Certification Done? *</th>
+          <th>Digi Dashboard updated Regularly? *</th>
+          <th>Any account shadows done *</th>
+          <th>Current status *</th>
+          <th>Additional upskilling while on bench *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.hsCertificationDone" name="hsCertificationDone" required
+            #hsCertificationDone="ngModel" required [class.is-invalid]="hsCertificationDone.invalid && hsCertificationDone.touched">
+            <div *ngIf="hsCertificationDone.errors && (hsCertificationDone.invalid && hsCertificationDone.touched)">
+              <small class="text-danger" *ngIf="hsCertificationDone.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="date" [(ngModel)]="newCandidate.digiDashboardUpdatedRegularly" name="digiDashboardUpdatedRegularly" required
+            #digiDashboardUpdatedRegularly="ngModel" required [class.is-invalid]="digiDashboardUpdatedRegularly.invalid && digiDashboardUpdatedRegularly.touched">
+            <div *ngIf="digiDashboardUpdatedRegularly.errors && (digiDashboardUpdatedRegularly.invalid && digiDashboardUpdatedRegularly.touched)">
+              <small class="text-danger" *ngIf="digiDashboardUpdatedRegularly.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.accountShadowsDone" name="accountShadowsDone" required
+            #accountShadowsDone="ngModel" required [class.is-invalid]="accountShadowsDone.invalid && accountShadowsDone.touched">
+            <div *ngIf="accountShadowsDone.errors && (accountShadowsDone.invalid && accountShadowsDone.touched)">
+              <small class="text-danger" *ngIf="accountShadowsDone.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.currentStatus" name="currentStatus" required
+            #currentStatus="ngModel" required [class.is-invalid]="currentStatus.invalid && currentStatus.touched">
+            <div *ngIf="currentStatus.errors && (currentStatus.invalid && currentStatus.touched)">
+              <small class="text-danger" *ngIf="currentStatus.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.upskillingWhileOnBench" name="upskillingWhileOnBench" required
+            #upskillingWhileOnBench="ngModel" required [class.is-invalid]="upskillingWhileOnBench.invalid && upskillingWhileOnBench.touched">
+            <div *ngIf="upskillingWhileOnBench.errors && (upskillingWhileOnBench.invalid && upskillingWhileOnBench.touched)">
+              <small class="text-danger" *ngIf="upskillingWhileOnBench.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <th>Current initiative involved in *</th>
+          <th>Any work done in last 3 month (hands on)? *</th>
+          <th>Is the person reachable *</th>
+          <th>BTO (Average for Q3)_Attendance *</th>
+          <th>Sapience avg for last 3 months *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.currentInitiativeInvolvedIn" name="currentInitiativeInvolvedIn" required
+            #currentInitiativeInvolvedIn="ngModel" required [class.is-invalid]="currentInitiativeInvolvedIn.invalid && currentInitiativeInvolvedIn.touched">
+            <div *ngIf="currentInitiativeInvolvedIn.errors && (currentInitiativeInvolvedIn.invalid && currentInitiativeInvolvedIn.touched)">
+              <small class="text-danger" *ngIf="currentInitiativeInvolvedIn.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.workDoneLast3Months" name="workDoneLast3Months" required
+            #workDoneLast3Months="ngModel" required [class.is-invalid]="workDoneLast3Months.invalid && workDoneLast3Months.touched">
+            <div *ngIf="workDoneLast3Months.errors && (workDoneLast3Months.invalid && workDoneLast3Months.touched)">
+              <small class="text-danger" *ngIf="workDoneLast3Months.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <select [(ngModel)]="newCandidate.personReachable" name="personReachable" required 
+            #personReachable="ngModel" required [class.is-invalid]="personReachable.invalid && personReachable.touched"
+            style="width: 160px; height: 20px;">
+            <div *ngIf="personReachable.errors && (personReachable.invalid && personReachable.touched)">
+              <small class="text-danger" *ngIf="personReachable.errors['required']">Please fill required</small>
+            </div>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.btoAverageQ3Attendance" name="btoAverageQ3Attendance" required
+            #btoAverageQ3Attendance="ngModel" required [class.is-invalid]="btoAverageQ3Attendance.invalid && btoAverageQ3Attendance.touched">
+            <div *ngIf="btoAverageQ3Attendance.errors && (btoAverageQ3Attendance.invalid && btoAverageQ3Attendance.touched)">
+              <small class="text-danger" *ngIf="btoAverageQ3Attendance.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.sapienceAvgLast3Months" name="sapienceAvgLast3Months" required
+            #sapienceAvgLast3Months="ngModel" required [class.is-invalid]="sapienceAvgLast3Months.invalid && sapienceAvgLast3Months.touched">
+            <div *ngIf="sapienceAvgLast3Months.errors && (sapienceAvgLast3Months.invalid && sapienceAvgLast3Months.touched)">
+              <small class="text-danger" *ngIf="sapienceAvgLast3Months.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <th>Leave balance *</th>
+          <th>Amount of leave applied in last 3 month *</th>
+          <th>BOTP Status *</th>
+          <th>Sub-Status *</th>
+          <th>College *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.leaveBalance" name="leaveBalance" required
+            #leaveBalance="ngModel" required [class.is-invalid]="leaveBalance.invalid && leaveBalance.touched">
+            <div *ngIf="leaveBalance.errors && (leaveBalance.invalid && leaveBalance.touched)">
+              <small class="text-danger" *ngIf="leaveBalance.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.leaveAppliedLast3Months" name="leaveAppliedLast3Months" required
+            #leaveAppliedLast3Months="ngModel" required [class.is-invalid]="leaveAppliedLast3Months.invalid && leaveAppliedLast3Months.touched">
+            <div *ngIf="leaveAppliedLast3Months.errors && (leaveAppliedLast3Months.invalid && leaveAppliedLast3Months.touched)">
+              <small class="text-danger" *ngIf="leaveAppliedLast3Months.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.botpStatus" name="botpStatus" required
+            #botpStatus="ngModel" required [class.is-invalid]="botpStatus.invalid && botpStatus.touched">
+            <div *ngIf="botpStatus.errors && (botpStatus.invalid && botpStatus.touched)">
+              <small class="text-danger" *ngIf="botpStatus.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.subStatus" name="subStatus" required
+            #subStatus="ngModel" required [class.is-invalid]="subStatus.invalid && subStatus.touched">
+            <div *ngIf="subStatus.errors && (subStatus.invalid && subStatus.touched)">
+              <small class="text-danger" *ngIf="subStatus.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.college" name="college" required
+            #college="ngModel" required [class.is-invalid]="college.invalid && college.touched">
+            <div *ngIf="college.errors && (college.invalid && college.touched)">
+              <small class="text-danger" *ngIf="college.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+          <th>College Type *</th>
+          <th>Education *</th>
+          <th>Recruitment SWAR Score *</th>
+          <th>Recruitment Aptitude Score *</th>
+          <th>Recruitment Coding score *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.collegeType" name="collegeType" required
+            #collegeType="ngModel" required [class.is-invalid]="collegeType.invalid && collegeType.touched">
+            <div *ngIf="collegeType.errors && (collegeType.invalid && collegeType.touched)">
+              <small class="text-danger" *ngIf="collegeType.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.education" name="education" required
+            #education="ngModel" required [class.is-invalid]="education.invalid && education.touched">
+            <div *ngIf="education.errors && (education.invalid && education.touched)">
+              <small class="text-danger" *ngIf="education.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.recruitmentSwarScore" name="recruitmentSwarScore" required
+            #recruitmentSwarScore="ngModel" required [class.is-invalid]="recruitmentSwarScore.invalid && recruitmentSwarScore.touched">
+            <div *ngIf="recruitmentSwarScore.errors && (recruitmentSwarScore.invalid && recruitmentSwarScore.touched)">
+              <small class="text-danger" *ngIf="recruitmentSwarScore.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.recruitmentAptitudeScore" name="recruitmentAptitudeScore" required
+            #recruitmentAptitudeScore="ngModel" required [class.is-invalid]="recruitmentAptitudeScore.invalid && recruitmentAptitudeScore.touched">
+            <div *ngIf="recruitmentAptitudeScore.errors && (recruitmentAptitudeScore.invalid && recruitmentAptitudeScore.touched)">
+              <small class="text-danger" *ngIf="recruitmentAptitudeScore.errors['required']">Please fill required</small>
+            </div>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.recruitmentCodingScore" name="recruitmentCodingScore" required
+            #recruitmentCodingScore="ngModel" required [class.is-invalid]="recruitmentCodingScore.invalid && recruitmentCodingScore.touched">
+            <div *ngIf="recruitmentCodingScore.errors && (recruitmentCodingScore.invalid && recruitmentCodingScore.touched)">
+              <small class="text-danger" *ngIf="recruitmentCodingScore.errors['required']">Please fill required</small>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <button class="add-button" [disabled]="candidateForm.form.invalid" type="submit">Add Candidate</button> &nbsp;
+    </form>
+</div>

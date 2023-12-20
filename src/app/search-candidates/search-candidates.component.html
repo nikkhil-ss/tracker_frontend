@@ -1,0 +1,215 @@
+<!-- <div class="container">
+  <app-dashboard></app-dashboard>
+  <h2>Search Candidate</h2>
+  
+  
+  <label for="searchBy">Search By:</label>
+  <select id="searchBy" [(ngModel)]="selectedSearchCriteria" (change)="onSearchCriteriaChange()">
+    <option value="empId">Emp Id</option>
+    <option value="empName">Emp Name</option>
+    <option value="email">E-mail</option>
+    <option value="mentorName">Mentor Name</option>
+  </select>
+
+ 
+  <label for="searchValue">Enter {{ selectedSearchCriteria }}:</label>
+  <input id="searchValue" [(ngModel)]="searchValue" (input)="onSearchValueChange()" />
+  <button (click)="fetchCandidates()">Search</button>
+
+ 
+  <table class="table" *ngIf="searchResults.length > 0">
+    <thead>
+      <tr>
+        <th>Emp Id</th>
+        <th>Emp Name</th>
+        <th>E-mail</th>
+        <th>Project Name</th>
+        <th>Project Code</th>
+        <th>Project Manager</th>
+        <th>Project Location</th>
+        <th>Interviewed</th>
+        <th>Interview Date</th>
+        <th>Feedback</th>
+        <th>Feedback Description</th>
+        <th>Comments</th>
+        <th>Feedback Attachment</th>
+        <th>Proposed Date</th>
+        <th>Mentor Name</th>
+        <th>Status</th>
+        <th>Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let candidate of searchResults">
+        <td>{{ candidate.empId }}</td>
+          <td>{{ candidate.employeeName }}</td>
+          <td>{{ candidate.email }}</td>
+          <td>{{ candidate.projectName }}</td>
+          <td>{{ candidate.projectCode }}</td>
+          <td>{{ candidate.projectManager }}</td>
+          <td>{{ candidate.projectLocation }}</td>
+          <td>{{ candidate.interviewed }}</td>
+          <td>{{ candidate.interviewDate }}</td>
+          <td>{{ candidate.feedback }}</td>
+          <td>{{ candidate.feedbackDescription }}</td>
+          <td>{{ candidate.comment }}</td>
+          <td>
+            <button class="view-attachment-button" (click)="openAttachment(candidate.image)">
+              Open
+            </button>
+          </td>
+           <td>{{ candidate.image }}</td> 
+          <td>{{ candidate.proposedDate }}</td>
+          <td>{{ candidate.mentorName }}</td>
+          <td>{{ candidate.status }}</td>
+          <td><button id="edit">Edit</button><button id="delete" (click)="deleteCandidate(candidate)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAttachmentModal}" [style.display]="showAttachmentModal ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Attachment Viewer</h5>
+        <button type="button" class="close" (click)="closeAttachment()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <iframe [src]="selectedAttachment" width="100%" height="500px"></iframe>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-backdrop fade" [class.show]="showAttachmentModal"></div> -->
+
+<div class="container">
+  <app-dashboard></app-dashboard>
+  <h2>Search Candidate</h2>
+  
+  <!-- Dropdown for search criteria -->
+  <label for="searchBy">Search By:</label>
+  <select id="searchBy" [(ngModel)]="selectedSearchCriteria" (change)="onSearchCriteriaChange()">
+    <option value="empId">Emp Id</option>
+    <option value="employeeName">Emp Name</option>
+    <option value="email">E-mail</option>
+    <option value="mentorName">Mentor Name</option>
+  </select>
+
+  <!-- Search input -->
+  <label for="searchValue">Enter {{ selectedSearchCriteria }}:</label>
+  <input id="searchValue" [(ngModel)]="searchValue" (input)="onSearchValueChange()" />
+  <button (click)="fetchCandidates()">Search</button>
+
+  <!-- Display search results -->
+  <table class="table" *ngIf="searchResults.length > 0">
+    <thead>
+      <tr>
+        <th>Emp Id</th>
+        <th>Emp Name</th>
+        <th>E-mail</th>
+        <th>Baseline Date</th>
+        <th>Local Grade</th>
+        <th>Current Day Status</th>
+        <th>Main Project</th>
+        <th>Account Name</th>
+        <th>Training Batch Id</th>
+        <th>Mentor Name</th>
+        <th>Training Score Feedback</th>
+        <th>Bucket</th>
+        <th>Qualitative Feedback</th>
+        <th>Ocean Attempted Till Date</th>
+        <th>Ocean Score If Attempted</th>
+        <th>HS Certification Done</th>
+        <th>Digi Dashboard Updated Regularly</th>
+        <th>Account Shadows Done</th>
+        <th>Current Status</th>
+        <th>Upskilling While On Bench</th>
+        <th>Current Initiative Involved In</th>
+        <th>Work Done Last 3 Months</th>
+        <th>Person Reachable</th>
+        <th>PSC Remarks</th>
+        <th>BTO (Average for Q3) Attendance</th>
+        <th>Sapience Avg for Last 3 Months</th>
+        <th>Leave Balance</th>
+        <th>Amount of Leave Applied in Last 3 Months</th>
+        <th>BOTP Status</th>
+        <th>Sub-Status</th>
+        <th>College</th>
+        <th>College Type</th>
+        <th>Education</th>
+        <th>Recruitment Swar Score</th>
+        <th>Recruitment Aptitude Score</th>
+        <th>Recruitment Coding Score</th>
+        <th>Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let candidate of searchResults">
+        <td>{{ candidate.empId }}</td>
+        <td>{{ candidate.employeeName }}</td>
+        <td>{{ candidate.email }}</td>
+        <td>{{ candidate.baselineDate }}</td>
+        <td>{{ candidate.localGrade }}</td>
+        <td>{{ candidate.currentDayStatus }}</td>
+        <td>{{ candidate.mainProject }}</td>
+        <td>{{ candidate.accountName }}</td>
+        <td>{{ candidate.trainingBatchId }}</td>
+        <td>{{ candidate.mentorName }}</td>
+        <td>{{ candidate.trainingScoreFeedback }}</td>
+        <td>{{ candidate.bucket }}</td>
+        <td>{{ candidate.qualitativeFeedback }}</td>
+        <td>{{ candidate.oceanAttemptedTillDate }}</td>
+        <td>{{ candidate.oceanScoreIfAttempted }}</td>
+        <td>{{ candidate.hsCertificationDone }}</td>
+        <td>{{ candidate.digiDashboardUpdatedRegularly }}</td>
+        <td>{{ candidate.accountShadowsDone }}</td>
+        <td>{{ candidate.currentStatus }}</td>
+        <td>{{ candidate.upskillingWhileOnBench }}</td>
+        <td>{{ candidate.currentInitiativeInvolvedIn }}</td>
+        <td>{{ candidate.workDoneLast3Months }}</td>
+        <td>{{ candidate.personReachable }}</td>
+        <td>{{ candidate.pscRemarks }}</td>
+        <td>{{ candidate.btoAverageQ3Attendance }}</td>
+        <td>{{ candidate.sapienceAvgLast3Months }}</td>
+        <td>{{ candidate.leaveBalance }}</td>
+        <td>{{ candidate.leaveAppliedLast3Months }}</td>
+        <td>{{ candidate.botpStatus }}</td>
+        <td>{{ candidate.subStatus }}</td>
+        <td>{{ candidate.college }}</td>
+        <td>{{ candidate.collegeType }}</td>
+        <td>{{ candidate.education }}</td>
+        <td>{{ candidate.recruitmentSwarScore }}</td>
+        <td>{{ candidate.recruitmentAptitudeScore }}</td>
+        <td>{{ candidate.recruitmentCodingScore }}</td>
+        <!-- <td><button id="edit">Edit</button><button id="delete" (click)="deleteCandidate(candidate)">Delete</button></td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAttachmentModal}" [style.display]="showAttachmentModal ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Attachment Viewer</h5>
+        <button type="button" class="close" (click)="closeAttachment()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Display the selected attachment (iframe, image, or other content) -->
+        <iframe [src]="selectedAttachment" width="100%" height="500px"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Background overlay when the modal is open -->
+<div class="modal-backdrop fade" [class.show]="showAttachmentModal"></div>

@@ -1,0 +1,61 @@
+export class Interview {
+  id!: string;
+  empId!: number;
+  employeeName!: string;
+  email!: string;
+
+  mobilePhoneNumber!: string;
+  office!: string;
+  joiningDate!: Date;
+  globalPractice!: string;
+  keySkillsSummary!: string;
+  currentAvailability!: string;
+  type!: string;
+  startDate!: Date;
+  endDate!: Date;
+  shadowAgeing!: string;
+  shadowAgeingBucket!: string;
+  benchAgingInDays!: string;
+  benchAgingRange!: string;
+  trainingModel!: string;
+  initialTrainingEndDate!: Date;
+  botpClosureStatus!: string;
+
+  initialBu!: string;
+  baselineDate!: Date;
+  localGrade!: string;
+  currentDayStatus!: string;
+  mainProject!: string;
+  accountName!: string;
+  trainingBatchId!: string;
+  mentorName!: string;
+  trainingScoreFeedback!: string;
+  bucket!: string;
+  qualitativeFeedback!: string;
+  oceanAttemptedTillDate!: string;
+  oceanScoreIfAttempted!: string;
+  hsCertificationDone!: string;
+  digiDashboardUpdatedRegularly!: Date;
+  accountShadowsDone!: string;
+  currentStatus!: string;
+  upskillingWhileOnBench!: string;
+  currentInitiativeInvolvedIn!: string;
+  workDoneLast3Months!: string;
+  personReachable!: string;
+  pscRemarks!: string;
+  btoAverageQ3Attendance: any; // Replace with appropriate type
+  sapienceAvgLast3Months!: string;
+  leaveBalance!: string;
+  leaveAppliedLast3Months!: string;
+  botpStatus!: string;
+  subStatus!: string;
+  college!: string;
+  collegeType!: string;
+  education!: string;
+  recruitmentSwarScore!: string;
+  recruitmentAptitudeScore!: string;
+  recruitmentCodingScore!: string;
+  isEdit!: boolean;
+  isSelected!: boolean;
+  isToDelete!: boolean;
+}

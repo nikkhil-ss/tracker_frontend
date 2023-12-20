@@ -1,0 +1,130 @@
+<app-dashboard></app-dashboard>
+<div class="add-candidate-container">
+    <h2>Edit Candidate</h2>
+    <form #candidateForm="ngForm">
+      <table class="candidate-table">
+        <tr>
+          <th>Proposed Date *</th>
+          <th>Mentor Name *</th>
+          <th>Employee ID *</th>
+          <th>Employee Name *</th>
+          <th>Employee Email *</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="date" [(ngModel)]="newCandidate.proposedDate" name="proposedDate" required (change)="checkForPastDate()">
+            <div *ngIf="showAlertForPastDate" class="alert alert-warning" style="color: red;">
+              Are you sure you want to select a past date?
+            </div>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.mentorName" name="mentorName" required>
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="newCandidate.empId" name="empId" required>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.employeeName" name="employeeName" required>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.email" name="email" required>
+          </td>
+        </tr>
+       
+        <br>
+        <br>
+        <tr>
+          <th>Project Code *</th>
+          <th>Project Name *</th>
+          <th>Project Manager Email *</th>
+          <th>Project Location *</th>
+          <th>Interviewed</th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.projectCode" name="projectCode" required>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.projectName" name="projectName" required>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.projectManageremail" name="projectManageremail" required>
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="newCandidate.projectLocation" name="projectLocation" required>
+          </td>
+          <td>
+            <input type="checkbox" [(ngModel)]="newCandidate.interviewed" name="interviewed">
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="newCandidate.interviewed">
+        <h3>Additional Information</h3>
+        <table class="additional-info-table">
+          <tr>
+            <td>Interview Date:</td>
+            <td>
+              <input type="date" [(ngModel)]="newCandidate.interviewDate" name="interviewDate">
+            </td>
+          </tr>
+          <tr>
+            <td>Feedback:</td>
+            <td>
+              <input type="text" [(ngModel)]="newCandidate.feedback" name="feedback">
+            </td>
+          </tr>
+          <tr>
+            <td>Feedback Description:</td>
+            <td><input type="text" [(ngModel)]="newCandidate.feedbackDescription" name="feedbackDescription"></td>
+          </tr>
+          <tr>
+            <td>Comment:</td>
+            <td><input type="text" [(ngModel)]="newCandidate.comment" name="comment"></td>
+          </tr>
+          <tr>
+            <td>Attachment:</td>
+            <td>
+              <input type="file" [(ngModel)]="newCandidate.image" name="image"/>
+              <!-- <img [src]="myImage" alt="image" class="show-img"> -->
+            </td>
+          </tr>
+          <!-- Add validation messages here for additional fields if needed -->
+
+          <tr>
+            <td>Selected/Rejected</td>
+            <td>
+              <label>
+                <input type="radio" [(ngModel)]="newCandidate.status" name="status" [value]="'Selected'"> Selected
+              </label>
+              <label>
+                <input type="radio" [(ngModel)]="newCandidate.status" name="status" [value]="'Rejected'"> Rejected
+              </label>
+              <label>
+                <input type="radio" [(ngModel)]="newCandidate.status" name="status" [value]="'Billable'"> Billable
+              </label>
+              <label>
+                <input type="radio" [(ngModel)]="newCandidate.status" name="status" [value]="'Shadow'"> Shadow
+              </label>
+            </td>
+          </tr>
+          <div *ngIf="newCandidate.status=='Shadow'">
+            <tr>
+              <td>Start Date:</td>
+              <td>
+                <input type="date" [(ngModel)]="newCandidate.interviewDate" name="interviewDate">
+              </td>
+            </tr>
+            <tr>
+              <td>End Date:</td>
+              <td>
+                <input type="date" [(ngModel)]="newCandidate.interviewDate" name="interviewDate">
+              </td>
+            </tr>
+          </div>
+        </table>
+      </div>
+      <button class="add-button" type="submit">Save Changes</button> &nbsp;
+      
+    </form>
+</div>

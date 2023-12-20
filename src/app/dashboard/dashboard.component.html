@@ -1,0 +1,25 @@
+<body>
+    <header>
+        <div (click)="navigateToLink()">
+            <img src="../../assets/Capgemini_201x_logo.svg.png" alt="Your Image"
+                style="height: 44px; margin-top:9px;margin-left: 30px;align-items: center; cursor: pointer;">
+        </div>
+        <div class="container" style="height: 40px; display: flex; align-items: center;">
+            <h1>Mentor Dashboard</h1>
+        </div>
+
+    <div class="user-info" *ngIf="username">
+        <button class="dropbtn" (click)="toggleDropdown()" (mouseenter)="showDropdown()" (mouseleave)="hideDropdown()">
+            Welcome, {{ username }}. ⮛<i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content" [ngClass]="{'show': dropdownOpen}" (mouseenter)="showDropdown()"
+            (mouseleave)="hideDropdown()">
+            <a routerLink="/add">➕ Add Candidate</a>
+            <a routerLink="/view">🪟 View My Candidates</a>
+            <a routerLink="/viewOtherMentor">🪟 View All Candidates</a>
+            <a (click)="changePassword()">🔄 Change Password</a>
+            <a (click)="logout()" >⤵️ Logout</a>
+        </div>
+    </div>
+</header>
+</body>

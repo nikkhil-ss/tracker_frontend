@@ -1,0 +1,65 @@
+<h2 class="text-center">Edit Batch</h2>
+ <div class="container">
+   <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+     <div class="row">
+       <div class="col-md-6">
+         <div class="form-group">
+           <label for="feedback">Feedback</label>
+           <input type="text" id="feedback" name="feedback" [(ngModel)]="Interview.feedback" class="form-control" required>
+           <div class="invalid-feedback">Please provide feedback.</div>
+         </div>
+         <div class="form-group">
+           <label for="mentorName">Mentor Name</label>
+           <input type="text" id="mentorName" name="mentorName" [(ngModel)]="Interview.mentorName" class="form-control" required>
+           <div class="invalid-feedback">Please enter the mentor's name.</div>
+         </div>
+         <div class="form-group">
+           <label for="numberOfCandidates">Number of Candidates</label>
+           <input type="number" id="numberOfCandidates" name="numberOfCandidates" [(ngModel)]="Interview.numberOfCandidates" class="form-control" required>
+           <div class="invalid-feedback">Please enter the number of candidates.</div>
+         </div>
+       </div>
+       <div class="col-md-6">
+         <div class="form-group">
+           <label for="trainingStartDate">Training Start Date</label>
+           <input type="date" id="trainingStartDate" name="trainingStartDate" [(ngModel)]="Interview.trainingStartDate" class="form-control" required>
+           <div class="invalid-feedback">Please select the training start date.</div>
+         </div>
+         <div class="form-group">
+           <label for="interviewDate">Interview Date</label>
+           <input type="date" id="interviewDate" name="interviewDate" [(ngModel)]="Interview.interviewDate" class="form-control" required>
+           <div class="invalid-feedback">Please select the Interview Date.</div>
+         </div>
+         <div class="form-group">
+           <label for="interviewed">Interviewed</label>
+           <input type="date" id="interviewed" name="interviewed" [(ngModel)]="Interview.interviewed" class="form-control" required>
+           <div class="invalid-feedback">Please enter interviewed or not.</div>
+         </div>
+         <div class="form-group">
+           <label for="comment">Comment</label>
+           <textarea id="comment" name="comment" [(ngModel)]="Interview.comment" class="form-control" rows="3"></textarea>
+         </div>
+       </div>
+     </div>
+     <div class="form-group">
+       <label for="batchStatus">Batch Status</label>
+       <select id="batchStatus" name="batchStatus" [(ngModel)]="Interview.batchStatus" class="form-control" required>
+         <option value="active">Active</option>
+         <option value="inactive">Inactive</option>
+       </select>
+     </div>
+     <div class="form-group">
+       <label for="trainingLocation">Training Location</label>
+       <input type="text" id="trainingLocation" name="trainingLocation" [(ngModel)]="Interview.trainingLocation" class="form-control" required>
+       <div class="invalid-feedback">Please specify the training location.</div>
+     </div>
+     
+     <div class="form-actions text-center">
+       <button type="submit" class="btn btn-primary">Save</button>
+       <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+     </div>
+   </form>
+ </div>
+ 
+
+

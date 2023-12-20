@@ -1,0 +1,587 @@
+<div class="container">
+
+  <!-- <br>
+  <div class='display'>
+    <button class="btn btn-danger" (click)="deleteSelectedCandidates()"[disabled]="selectedCandidates.length === 0">Delete Selected</button>&nbsp;
+    <button class="btn btn-primary" (click)="editMultipleCandidates()" [disabled]="selectedCandidates.length === 0">Bulk
+      Update</button>
+    <div *ngIf="editedCandidates.length > 0" class="save-button-container">
+      <button type="submit" (click)="saveMultipleCandidates()" class="buttons save-button">Confirm</button>
+    </div>
+  </div>
+  <br> -->
+  <!-- Filter -->
+  <div class="search-dropdown1" style="display: flex; flex-direction: row; align-items: center;">
+    <div class=delete-btn>
+      <button class="btn btn-danger" (click)="deleteSelectedCandidates()"
+        [disabled]="selectedCandidates.length === 0">Delete Selected</button>
+      <button class="btn btn-primary" (click)="editMultipleCandidates()"
+        [disabled]="selectedCandidates.length === 0">Bulk Update</button>
+      <div *ngIf="editedCandidates.length > 0" class="save-button-container">
+        <button type="submit" (click)="saveMultipleCandidates()" class="buttons save-button">Confirm</button>
+      </div>
+    </div>
+    <label class="dropdown-label" for="dropdown">Filters:</label>
+    <select id="dropdown" [(ngModel)]="selectedValue" style="display: flex; height: 30px;">
+      <option value="">Select Candidates</option>
+      <option value="baselineDate">Baseline date</option>
+      <option value="initialBu">Initial BU</option>
+      <option value="empId">Emp Id</option>
+      <option value="employeeName">Employee Name</option>
+      <option value="email">Email</option>
+      <option value="localGrade">Local Grade</option>
+      <option value="currentDayStatus">Current Day Status</option>
+      <option value="mainProject">Main Project</option>
+      <option value="accountName">Account Name</option>
+      <option value="trainingBatchId">Training Batch Id</option>
+      <option value="mentorName">Mentor Name</option>
+      <option value="trainingScoreFeedback">Training score/feedback</option>
+      <option value="bucket">Bucket</option>
+      <option value="qualitativeFeedback">Qualitative feedback/Mentor Feedback</option>
+      <option value="oceanAttemptedTillDate">Ocean attempted till date</option>
+      <option value="oceanScoreIfAttempted">Ocean Score if attempted</option>
+      <option value="hsCertificationDone">HS Certification Done?</option>
+      <option value="digiDashboardUpdatedRegularly">Digi Dashboard updated Regularly?</option>
+      <option value="accountShadowsDone">Any account shadows done</option>
+      <option value="currentStatus">Current status</option>
+      <option value="upskillingWhileOnBench">Additional upskilling while on bench</option>
+      <option value="currentInitiativeInvolvedIn">Current initiative involved in</option>
+      <option value="workDoneLast3Months">Any work done in last 3 month (hands on)</option>
+      <option value="personReachable">Is the person reachable</option>
+      <!-- <option value="">Mapping Pending - Slot unavailable</option> -->
+      <option value="pscRemarks">PSC Remarks</option>
+      <option value="btoAverageQ3Attendance">BTO (Average for Q3)_Attendance</option>
+      <option value="sapienceAvgLast3Months">Sapience avg for last 3 month</option>
+      <option value="leaveBalance">Leave balance</option>
+      <option value="leaveAppliedLast3Months">Amount of leave applied in last 3 month</option>
+      <option value="botpStatus">BOTP Status</option>
+      <option value="subStatus">Sub-Status</option>
+      <option value="college">College</option>
+      <option value="collegeType">College Type</option>
+      <option value="education">Education</option>
+      <option value="recruitmentSwarScore">Recruitment SWAR Score</option>
+      <option value="recruitmentAptitudeScore">Recruitment Aptitude Score</option>
+      <option value="recruitmentCodingScore">Recruitment Coding score</option>
+    </select>
+    <div
+      *ngIf="selectedValue === 'baselineDate' || selectedValue === 'initialBu' || selectedValue === 'empId' || selectedValue === 'employeeName' || selectedValue === 'email' || selectedValue === 'localGrade' || selectedValue === 'currentDayStatus' || selectedValue === 'mainProject' || selectedValue === 'accountName' || selectedValue === 'trainingBatchId' || selectedValue === 'mentorName' || selectedValue === 'trainingScoreFeedback' || selectedValue === 'bucket' || selectedValue === 'qualitativeFeedback' || selectedValue === 'oceanAttemptedTillDate' || selectedValue === 'oceanScoreIfAttempted' || selectedValue === 'hsCertificationDone' || selectedValue === 'digiDashboardUpdatedRegularly' || selectedValue === 'accountShadowsDone' || selectedValue === 'currentStatus' || selectedValue === 'upskillingWhileOnBench' || selectedValue === 'currentInitiativeInvolvedIn' || selectedValue === 'workDoneLast3Months' || selectedValue === 'personReachable' || selectedValue === 'pscRemarks' || selectedValue === 'btoAverageQ3Attendance' || selectedValue === 'sapienceAvgLast3Months' || selectedValue === 'leaveBalance' || selectedValue === 'leaveAppliedLast3Months' || selectedValue === 'botpStatus' || selectedValue === 'subStatus' || selectedValue === 'college' || selectedValue === 'collegeType' || selectedValue === 'education' || selectedValue === 'recruitmentSwarScore' || selectedValue === 'recruitmentAptitudeScore' || selectedValue === 'recruitmentCodingScore'">
+      <label for="additionalInput"></label>
+      <input type="text" style="border-radius: 20px; border-width: 2px; height: 30px;" class="form-control py-2 k"
+        [(ngModel)]="searchText" placeholder="enter text" (keyup.enter)="search()" />
+    </div>
+
+    <div>
+
+
+      <button class="btn btn-outline-secondary buttons" style="height: 30px; width: 65px;" (keydown.enter)="search()"
+        (click)="search()">
+        <i class="fas fa-times"></i>Search
+      </button>
+
+
+    </div>
+  </div>
+  <!-- End of filterdiv -->
+
+  <!--    
+      <div style="display:flex ; flex-direction: row; align-items: baseline;   ">
+        <input type="text" style="border-radius: 20px; border-width:2px;  height: 30px; width: 200px;" class="form-control py-2 k"
+          [(ngModel)]="searchText" placeholder="Search Candidates" (input)="onSearchTextChange()" />
+        <div>
+          <button class="btn btn-outline-secondary border-left-0 buttons"
+            style="height: 30px; width: 70px; margin-left: 10px;" (click)="clearSearch()">
+            <i class="fas fa-times"></i> Clear
+          </button>
+        </div>
+    </div> -->
+
+  <div style="">
+
+
+    <table class="table">
+      <thead class="sticky-row ">
+        <tr>
+          <th>
+            <div class="headerDiv">
+              <!-- <input type="checkbox" name="selectAll" id="selectAll" (change)="selectUnselectAll($event)"> -->
+              <label for="selectAll">Select</label>
+            </div>
+          </th>
+          <th>
+            <div class="headerDiv">Sr.No</div>
+          </th>
+          <th>
+            <div class="headerDiv">BaseLine Date </div>
+          </th>
+          <th>
+            <div class="headerDiv">Initial BU</div>
+          </th>
+          <th>
+            <div class="headerDiv">Emp Id</div>
+          </th>
+          <th>
+            <div class="headerDiv">Emp Name</div>
+          </th>
+          <th class="sticky-column">
+            <div class="headerDiv">E-mail</div>
+          </th>
+          <th>
+            <div class="headerDiv">Local Grade</div>
+          </th>
+          <th>
+            <div class="headerDiv">Current Day Status</div>
+          </th>
+          <th>
+            <div class="headerDiv">Main Project</div>
+          </th>
+          <th>
+            <div class="headerDiv">Account Name</div>
+          </th>
+          <th>
+            <div class="headerDiv">Training Batch Id</div>
+          </th>
+          <th>
+            <div class="headerDiv">Mentor Name</div>
+          </th>
+          <th>
+            <div class="headerDiv">Training Score Feedback</div>
+          </th>
+          <th>
+            <div class="headerDiv">Bucket</div>
+          </th>
+          <th>
+            <div class="headerDiv">Qualitative Feedback</div>
+          </th>
+          <th>
+            <div class="headerDiv">Ocean Attempted Till Date</div>
+          </th>
+          <th>
+            <div class="headerDiv">Ocean Score If Attempted</div>
+          </th>
+          <th>
+            <div class="headerDiv">HS Certification Done</div>
+          </th>
+          <th>
+            <div class="headerDiv">Digi Dashboard Updated Regularly</div>
+          </th>
+          <th>
+            <div class="headerDiv">Account Shadows Done</div>
+          </th>
+          <th>
+            <div class="headerDiv">Current Status</div>
+          </th>
+          <th>
+            <div class="headerDiv">Upskilling While On Bench</div>
+          </th>
+          <th>
+            <div class="headerDiv">Current Initiative Involved In</div>
+          </th>
+          <th>
+            <div class="headerDiv">Work Done Last 3 Months</div>
+          </th>
+          <th>
+            <div class="headerDiv">Person Reachable</div>
+          </th>
+          <th>
+            <div class="headerDiv">PSC Remarks</div>
+          </th>
+          <th>
+            <div class="headerDiv">BTO (Average for Q3) Attendance</div>
+          </th>
+          <th>
+            <div class="headerDiv">Sapience Avg for Last 3 Months</div>
+          </th>
+          <th>
+            <div class="headerDiv">Leave Balance</div>
+          </th>
+          <th>
+            <div class="headerDiv">Leaves Applied in Last 3 Months</div>
+          </th>
+          <th>
+            <div class="headerDiv">BOTP Status</div>
+          </th>
+          <th>
+            <div class="headerDiv">Sub-Status</div>
+          </th>
+          <th>
+            <div class="headerDiv">College</div>
+          </th>
+          <th>
+            <div class="headerDiv">College Type</div>
+          </th>
+          <th>
+            <div class="headerDiv">Education</div>
+          </th>
+          <th>
+            <div class="headerDiv">Recruitment Swar Score</div>
+          </th>
+          <th>
+            <div class="headerDiv">Recruitment Aptitude Score</div>
+          </th>
+          <th>
+            <div class="headerDiv">Recruitment Coding Score</div>
+          </th>
+          <!-- <th>
+            <div class="headerDiv">Action</div>
+          </th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidate of searchservice.filteredCandidates; let i = index"
+          [ngClass]="{'colour-change': candidate.initialBu !== 'Apps NA'}">
+          <!-- <td><input type="checkbox" [(ngModel)]="candidate.isSelected"></td> -->
+          <td>
+            <input type="checkbox" (change)="deleteCandidate(candidate)" [(ngModel)]="candidate.isSelected">
+          </td>
+          <td><span>{{i + 1}}</span></td>
+          <td>
+            <span>{{candidate.baselineDate |
+              date:'dd-MM-yyyy'}}</span>
+            <!-- <input *ngIf="candidate.isEdit" name="baselineDate" id="baselineDate"
+                      [(ngModel)]="candidate.baselineDate"> -->
+          </td>
+          <td>
+            <span>{{candidate.initialBu}}</span>
+            <!-- <input *ngIf="candidate.isEdit" name="empId" id="empId" [(ngModel)]="candidate.empId"> -->
+          </td>
+          <td>
+            <span>{{candidate.empId}}</span>
+            <!-- <input *ngIf="candidate.isEdit" name="empId" id="empId" [(ngModel)]="candidate.empId"> -->
+          </td>
+
+          <td>
+            <span>{{candidate.employeeName}}</span>
+            <!-- <input *ngIf="candidate.isEdit" name="employeeName" id="employeeName"
+                      [(ngModel)]="candidate.employeeName"> -->
+          </td>
+          <td class="sticky-column">
+            <span>{{candidate.email}}</span>
+            <!-- <div *ngIf="candidate.isEdit" class="save-button-container">
+              <button type="submit" (click)="save(candidate)" class="buttons save-button">Save</button>
+            </div> -->
+          </td>
+          <td>
+            <span>{{candidate.localGrade}}</span>
+
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.currentDayStatus}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="currentDayStatus" id="currentDayStatus" [(ngModel)]="candidate.currentDayStatus">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.mainProject}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="mainProject" id="mainProject" [(ngModel)]="candidate.mainProject">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.accountName}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="accountName" id="accountName" [(ngModel)]="candidate.accountName">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.trainingBatchId}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="trainingBatchId" id="trainingBatchId" [(ngModel)]="candidate.trainingBatchId">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.mentorName}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="mentorName" id="mentorName" [(ngModel)]="candidate.mentorName">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.trainingScoreFeedback}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="trainingScoreFeedback" id="trainingScoreFeedback"
+                [(ngModel)]="candidate.trainingScoreFeedback">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.bucket}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="bucket" id="bucket" [(ngModel)]="candidate.bucket">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit" style="width: 350px;
+                overflow: auto;
+                white-space: nowrap;">
+              <span (click)="makeEditable(candidate)">{{candidate.qualitativeFeedback}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="qualitativeFeedback" id="qualitativeFeedback" [(ngModel)]="candidate.qualitativeFeedback">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.oceanAttemptedTillDate}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="oceanAttemptedTillDate" id="oceanAttemptedTillDate"
+                [(ngModel)]="candidate.oceanAttemptedTillDate">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.oceanScoreIfAttempted}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="oceanScoreIfAttempted" id="oceanScoreIfAttempted"
+                [(ngModel)]="candidate.oceanScoreIfAttempted">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.hsCertificationDone}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="hsCertificationDone" id="hsCertificationDone" [(ngModel)]="candidate.hsCertificationDone">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.digiDashboardUpdatedRegularly}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="digiDashboardUpdatedRegularly" id="digiDashboardUpdatedRegularly"
+                [(ngModel)]="candidate.digiDashboardUpdatedRegularly">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.accountShadowsDone}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="accountShadowsDone" id="accountShadowsDone" [(ngModel)]="candidate.accountShadowsDone">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.currentStatus}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="currentStatus" id="currentStatus" [(ngModel)]="candidate.currentStatus">
+            </div>
+          </td>
+
+          <td style=" ">
+            <div *ngIf="!candidate.isEdit" style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+              <span (click)="makeEditable(candidate)">{{candidate.upskillingWhileOnBench}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="upskillingWhileOnBench" id="upskillingWhileOnBench"
+                [(ngModel)]="candidate.upskillingWhileOnBench">
+            </div>
+          </td>
+
+          <td style=" ">
+            <div *ngIf="!candidate.isEdit" style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+              <span (click)="makeEditable(candidate)">{{candidate.currentInitiativeInvolvedIn}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="currentInitiativeInvolvedIn" id="currentInitiativeInvolvedIn"
+                [(ngModel)]="candidate.currentInitiativeInvolvedIn">
+            </div>
+          </td>
+
+          <td style=" ">
+            <div *ngIf="!candidate.isEdit" style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+              <span (click)="makeEditable(candidate)">{{candidate.workDoneLast3Months}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="workDoneLast3Months" id="workDoneLast3Months" [(ngModel)]="candidate.workDoneLast3Months">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.personReachable}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="personReachable" id="personReachable" [(ngModel)]="candidate.personReachable">
+            </div>
+          </td>
+
+          <td style=" ">
+            <div *ngIf="!candidate.isEdit" style="width: 350px;
+                  overflow: auto;
+                  white-space: nowrap;">
+              <span (click)="makeEditable(candidate)">{{candidate.pscRemarks}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="pscRemarks" id="pscRemarks" [(ngModel)]="candidate.pscRemarks">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.btoAverageQ3Attendance}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="btoAverageQ3Attendance" id="btoAverageQ3Attendance"
+                [(ngModel)]="candidate.btoAverageQ3Attendance">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.sapienceAvgLast3Months}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="sapienceAvgLast3Months" id="sapienceAvgLast3Months"
+                [(ngModel)]="candidate.sapienceAvgLast3Months">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.leaveBalance}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="leaveBalance" id="leaveBalance" [(ngModel)]="candidate.leaveBalance">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.leaveAppliedLast3Months}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="leaveAppliedLast3Months" id="leaveAppliedLast3Months"
+                [(ngModel)]="candidate.leaveAppliedLast3Months">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.botpStatus}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="botpStatus" id="botpStatus" [(ngModel)]="candidate.botpStatus">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.subStatus}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="subStatus" id="subStatus" [(ngModel)]="candidate.subStatus">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.college}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="college" id="college" [(ngModel)]="candidate.college">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.collegeType}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="collegeType" id="collegeType" [(ngModel)]="candidate.collegeType">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.education}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="education" id="education" [(ngModel)]="candidate.education">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.recruitmentSwarScore}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="recruitmentSwarScore" id="recruitmentSwarScore" [(ngModel)]="candidate.recruitmentSwarScore">
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.recruitmentAptitudeScore}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="recruitmentAptitudeScore" id="recruitmentAptitudeScore"
+                [(ngModel)]="candidate.recruitmentAptitudeScore">
+            </div>
+          </td>
+
+
+          <td>
+            <div *ngIf="!candidate.isEdit">
+              <span (click)="makeEditable(candidate)">{{candidate.recruitmentCodingScore}}</span>
+            </div>
+            <div *ngIf="candidate.isEdit">
+              <input name="recruitmentCodingScore" id="recruitmentCodingScore"
+                [(ngModel)]="candidate.recruitmentCodingScore">
+            </div>
+          </td>
+          <!-- <td>
+            <button id="delete" (click)="deleteCandidate(candidate)" class="buttons">Delete</button>
+          </td> -->
+
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center" id="loadContainer">
+      <div class="spinner-border" role="status">
+        <span class="sr-only" id="loading"></span>
+      </div>
+    </div>
+  </div>
+</div>

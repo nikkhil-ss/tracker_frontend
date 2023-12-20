@@ -1,0 +1,127 @@
+.sticky-column {
+    position: sticky;
+    left: 0 !important;
+    background-color: #f2f2f2;
+    z-index: 2;
+  }
+  
+  .sticky-row {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+  }
+  
+  tr td:nth-of-type(4) {
+    position: sticky;
+    left: 0 !important;
+    background-color: #f2f2f2;
+    z-index: 2;
+  }
+  
+  .buttons {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .container {
+    display: inline-block;
+  }
+  
+  .inputBox {
+    border: none;
+  }
+  
+  .table {
+    display: block;
+  
+    border-collapse: collapse;
+    width: 100vw;
+    overflow-x: scroll;
+    overflow-y: auto;
+    height: 100vh;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 200px;
+    padding: 0px;
+  }
+  
+  .headerDiv {
+    border: 2px solid #000000;
+    height: 60px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .table td {
+    padding: 3px;
+    border: 1px solid #ddd;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .view-attachment-button {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .view-attachment-button:hover {
+    color: darkblue;
+  }
+  
+  .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1040;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .modal-content {
+    width: 70%;
+    margin: 0 auto;
+    max-height: 70vh;
+    z-index: 1050;
+  }
+  
+  .modal-body {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    justify-content: center;
+  }

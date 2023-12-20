@@ -1,0 +1,123 @@
+.bodyBox {
+  height: 100vh;
+  background-size: contain;
+  background-image: url('src/assets/signupBg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.containerr {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.leftBox {
+  flex: 1;
+}
+
+.rightBox {
+
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  background-color: rgba(169, 169, 169, 0.5);
+  height: 70%;
+  width: 400px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+
+
+}
+
+.form-container {
+  border-radius: 20px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input,
+textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  /* margin-left: auto; */
+  margin-right: auto;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+@media (max-width: 768px) {
+  .form-container {
+    border-radius: 0;
+  }
+
+  input,
+  textarea {
+    border-radius: 10px;
+  }
+
+  button {
+    border-radius: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .containerr {
+    flex-direction: column;
+  }
+
+  .leftBox {
+    display: none;
+  }
+}

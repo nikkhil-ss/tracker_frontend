@@ -1,0 +1,100 @@
+<body class="background-image">
+  <div class="top-left-image" (click)="navigateToLink()">
+    <img src="../../assets/Capgemini_201x_logo.svg.png" alt="Your Image">
+  </div>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required>
+        </mat-form-field>
+        <div class="error-message" *ngIf="loginFailed">
+          <small class="text-danger">Incorrect username or password. Please try again.</small>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <app-live-clock class="clock"></app-live-clock>
+  <div class="footer-bottom">
+    <h5 class="copyright desktop">
+      All rights reserved by Capgemini. Copyright © 2023
+    </h5>
+    <ul class="social-nav">
+      <li>
+        <a href="https://www.facebook.com/CapgeminiIndia" target="_blank" class="footer-class"
+          title="Opens in a new window" rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/Facebook.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/CapgeminiIndia" target="_blank" class="footer-class" title="Opens in a new window"
+          rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2023/09/X@1x.svg?w=150&amp;h=150&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/company/capgemini/" target="_blank" class="footer-class"
+          title="Opens in a new window" rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/Linkedin.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/channel/UCRHMhVXEsPtTQ60dkxg8VXw" target="_blank" class="footer-class"
+          title="Opens in a new window" rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/YouTube.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.slideshare.net/capgemini" target="_blank" class="footer-class" title="Opens in a new window"
+          rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/SlideShare.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.glassdoor.co.in/Reviews/Capgemini-India-Reviews-EI_E3803.0,9_IL.10,15_IN115.htm"
+          target="_blank" class="footer-class" title="Opens in a new window" rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/Glassdoor.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://soundcloud.com/capgemini" target="_blank" class="footer-class" title="Opens in a new window"
+          rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/SoundCloud.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/capgeminiindia/" target="_blank" class="footer-class"
+          title="Opens in a new window" rel="noopener noreferrer">
+          <img loading="lazy"
+            src="https://prod.ucwe.capgemini.com/in-en/wp-content/uploads/sites/18/2022/10/Instagram.png?w=48&amp;h=48&amp;crop=1"
+            class="social-icon-footer">
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+
+ 
