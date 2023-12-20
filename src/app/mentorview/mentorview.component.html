@@ -6,7 +6,7 @@
     <div class="search-dropdown1" style="display: flex; flex-direction: row; align-items: center;">
         <label class="dropdown-label" for="dropdown">Filters:</label>
         <select id="dropdown" [(ngModel)]="selectedValue" style="display: flex; height: 30px;">
-            <option value="">Select Candidates</option>
+            <option value="">Select All</option>
             <option value="baselineDate">Baseline date</option>
             <option value="initialBu">Initial BU</option>
             <option value="empId">Emp Id</option>
@@ -75,7 +75,7 @@
                         <div class="headerDiv">Sr.No</div>
                     </th>
                     <th>
-                        <div class="headerDiv">BaseLine Date </div>
+                        <div class="headerDiv">BaseLine Date</div>
                     </th>
                     <th>
                         <div class="headerDiv">Initial BU</div>
@@ -90,11 +90,39 @@
                         <div class="headerDiv">E-mail</div>
                     </th>
                     <th>
+                        <div class="headerDiv">Mobile Phone Number</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Office</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Joining Date</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Global Practice</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Key Skills Summary (Notes 3)</div>
+                    </th>
+                    <th>
                         <div class="headerDiv">Local Grade</div>
                     </th>
                     <th>
                         <div class="headerDiv">Current Day Status</div>
                     </th>
+                    <th>
+                        <div class="headerDiv">Current Availability</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Type</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Start End</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">End Date</div>
+                    </th>
+                    
                     <th>
                         <div class="headerDiv">Main Project</div>
                     </th>
@@ -102,11 +130,31 @@
                         <div class="headerDiv">Account Name</div>
                     </th>
                     <th>
+                        <div class="headerDiv">Shadow Aging</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Shadow Ageing Bucket</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Bench Aging in Days</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Bench Aging Range</div>
+                    </th>
+                    <th>
+                        <div class="headerDiv">Training Model</div>
+                    </th>
+                    
+                    <th>
                         <div class="headerDiv">Training Batch Id</div>
                     </th>
                     <th>
                         <div class="headerDiv">Mentor Name</div>
                     </th>
+                    <th>
+                        <div class="headerDiv">Initial Training End Date</div>
+                    </th>
+                    
                     <th>
                         <div class="headerDiv">Training Score Feedback</div>
                     </th>
@@ -168,6 +216,10 @@
                         <div class="headerDiv">Sub-Status</div>
                     </th>
                     <th>
+                        <div class="headerDiv">BOTP Closure Status</div>
+                    </th>
+                    
+                    <th>
                         <div class="headerDiv">College</div>
                     </th>
                     <th>
@@ -192,189 +244,245 @@
                     [ngClass]="{'colour-change': candidate.initialBu !== 'Apps NA'}">
                     <td><span>{{i + 1}}</span></td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.baselineDate |
-                            date:'dd/MM/yyyy'
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.baselineDate | date : "dd/MM/yyyy"
                             }}</span>
-
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.initialBu}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.initialBu }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.empId}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.empId }}</span>
                     </td>
-
+                    
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.employeeName}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.employeeName }}</span>
                     </td>
                     <td class="sticky-column">
-                        <span>{{candidate.email}}</span>
+                        <span>{{ candidate.email }}</span>
                         <div *ngIf="candidate.isEdit" class="save-button-container">
-                            <button type="submit" (click)="save(candidate)" class="buttons save-button">Save</button>
+                            <button type="submit" (click)="save(candidate)" class="buttons save-button">
+                                Save
+                            </button>
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.mobilePhoneNumber }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.office }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.joiningDate | date : "dd/MM/yyyy" }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.globalPractice }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.keySkillsSummary }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.localGrade }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.currentDayStatus
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.currentAvailability
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.type
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.startDate | date : "dd/MM/yyyy"
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.endDate | date : "dd/MM/yyyy"
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.mainProject }}</span>
+                    </td>
+                    
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.accountName }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.shadowAgeing
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.shadowAgeingBucket
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.benchAgingInDays
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.benchAgingRange
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.trainingModel
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.trainingBatchId
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.mentorName }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.initialTrainingEndDate | date : "dd/MM/yyyy"
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.trainingScoreFeedback
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{ candidate.bucket }}</span>
+                    </td>
+                    <td>
+                        <div style="width: 350px; overflow: auto; white-space: nowrap">
+                            <span *ngIf="!candidate.isEdit">{{
+                                candidate.qualitativeFeedback
+                                }}</span>
                         </div>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.localGrade}}</span>
-
-                    </td>
-
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.currentDayStatus}}</span>
-
-                    </td>
-
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.mainProject}}</span>
-
-                    </td>
-
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.accountName}}</span>
-
-                    </td>
-
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.trainingBatchId}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.oceanAttemptedTillDate
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.mentorName}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.oceanScoreIfAttempted
+                            }}</span>
                     </td>
-
+                    
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.trainingScoreFeedback}}</span>
-
-                    </td>
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.bucket}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.hsCertificationDone
+                            }}</span>
                     </td>
                     <td>
-                        <div style="width: 350px;
-                overflow: auto;
-                white-space: nowrap;">
-                            <span *ngIf="!candidate.isEdit">{{candidate.qualitativeFeedback}}</span>
-
-                        </div>
-                    </td>
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.oceanAttemptedTillDate}}</span>
-
-                    </td>
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.oceanScoreIfAttempted}}</span>
-
-                    </td>
-
-
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.hsCertificationDone}}</span>
-
-                    </td>
-                    <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.digiDashboardUpdatedRegularly
-                            | date:'dd/MM/yyyy'
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.digiDashboardUpdatedRegularly | date : "dd/MM/yyyy"
                             }}
                         </span>
-
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.accountShadowsDone}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.accountShadowsDone
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.currentStatus}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.currentStatus }}</span>
                     </td>
                     <td>
-                        <div style="width: 350px;
-                  overflow: auto;
-                  white-space: nowrap;">
-                            <span *ngIf="!candidate.isEdit">{{candidate.upskillingWhileOnBench}}</span>
-
+                        <div style="width: 350px; overflow: auto; white-space: nowrap">
+                            <span *ngIf="!candidate.isEdit">{{
+                                candidate.upskillingWhileOnBench
+                                }}</span>
                         </div>
                     </td>
                     <td>
-                        <div style="width: 350px;
-                  overflow: auto;
-                  white-space: nowrap;">
-                            <span *ngIf="!candidate.isEdit">{{candidate.currentInitiativeInvolvedIn}}</span>
-
+                        <div style="width: 350px; overflow: auto; white-space: nowrap">
+                            <span *ngIf="!candidate.isEdit">{{
+                                candidate.currentInitiativeInvolvedIn
+                                }}</span>
                         </div>
                     </td>
                     <td>
-                        <div style="width: 350px;
-                  overflow: auto;
-                  white-space: nowrap;">
-                            <span *ngIf="!candidate.isEdit">{{candidate.workDoneLast3Months}}</span>
-
+                        <div style="width: 350px; overflow: auto; white-space: nowrap">
+                            <span *ngIf="!candidate.isEdit">{{
+                                candidate.workDoneLast3Months
+                                }}</span>
                         </div>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.personReachable}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.personReachable
+                            }}</span>
                     </td>
                     <td style="">
-                        <div style="width: 350px;
-                 overflow: auto;
-                 white-space: nowrap;
-                 
-                 ">
-                            <span *ngIf="!candidate.isEdit">{{candidate.pscRemarks}}</span>
-
+                        <div style="width: 350px; overflow: auto; white-space: nowrap">
+                            <span *ngIf="!candidate.isEdit">{{ candidate.pscRemarks }}</span>
                         </div>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.btoAverageQ3Attendance}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.btoAverageQ3Attendance
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.sapienceAvgLast3Months}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.sapienceAvgLast3Months
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.leaveBalance}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.leaveBalance }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.leaveAppliedLast3Months}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.leaveAppliedLast3Months
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.botpStatus}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.botpStatus }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.subStatus}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.subStatus }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.college}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.botpClosureStatus
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.collegeType}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.college }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.education}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.collegeType }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentSwarScore}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{ candidate.education }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentAptitudeScore}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.recruitmentSwarScore
+                            }}</span>
                     </td>
                     <td>
-                        <span *ngIf="!candidate.isEdit">{{candidate.recruitmentCodingScore}}</span>
-
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.recruitmentAptitudeScore
+                            }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!candidate.isEdit">{{
+                            candidate.recruitmentCodingScore
+                            }}</span>
                     </td>
                 </tr>
 

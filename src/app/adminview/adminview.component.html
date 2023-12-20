@@ -1,15 +1,5 @@
 <div class="container">
 
-  <!-- <br>
-  <div class='display'>
-    <button class="btn btn-danger" (click)="deleteSelectedCandidates()"[disabled]="selectedCandidates.length === 0">Delete Selected</button>&nbsp;
-    <button class="btn btn-primary" (click)="editMultipleCandidates()" [disabled]="selectedCandidates.length === 0">Bulk
-      Update</button>
-    <div *ngIf="editedCandidates.length > 0" class="save-button-container">
-      <button type="submit" (click)="saveMultipleCandidates()" class="buttons save-button">Confirm</button>
-    </div>
-  </div>
-  <br> -->
   <!-- Filter -->
   <div class="search-dropdown1" style="display: flex; flex-direction: row; align-items: center;">
     <div class=delete-btn>
@@ -23,7 +13,7 @@
     </div>
     <label class="dropdown-label" for="dropdown">Filters:</label>
     <select id="dropdown" [(ngModel)]="selectedValue" style="display: flex; height: 30px;">
-      <option value="">Select Candidates</option>
+      <option value="">Select All</option>
       <option value="baselineDate">Baseline date</option>
       <option value="initialBu">Initial BU</option>
       <option value="empId">Emp Id</option>
@@ -83,18 +73,6 @@
   </div>
   <!-- End of filterdiv -->
 
-  <!--    
-      <div style="display:flex ; flex-direction: row; align-items: baseline;   ">
-        <input type="text" style="border-radius: 20px; border-width:2px;  height: 30px; width: 200px;" class="form-control py-2 k"
-          [(ngModel)]="searchText" placeholder="Search Candidates" (input)="onSearchTextChange()" />
-        <div>
-          <button class="btn btn-outline-secondary border-left-0 buttons"
-            style="height: 30px; width: 70px; margin-left: 10px;" (click)="clearSearch()">
-            <i class="fas fa-times"></i> Clear
-          </button>
-        </div>
-    </div> -->
-
   <div style="">
 
 
@@ -126,11 +104,39 @@
             <div class="headerDiv">E-mail</div>
           </th>
           <th>
+            <div class="headerDiv">Mobile Phone Number</div>
+          </th>
+          <th>
+            <div class="headerDiv">Office</div>
+          </th>
+          <th>
+            <div class="headerDiv">Joining Date</div>
+          </th>
+          <th>
+            <div class="headerDiv">Global Practice</div>
+          </th>
+          <th>
+            <div class="headerDiv">Key Skills Summary (Notes 3)</div>
+          </th>
+          <th>
             <div class="headerDiv">Local Grade</div>
           </th>
           <th>
             <div class="headerDiv">Current Day Status</div>
           </th>
+          <th>
+            <div class="headerDiv">Current Availability</div>
+          </th>
+          <th>
+            <div class="headerDiv">Type</div>
+          </th>
+          <th>
+            <div class="headerDiv">Start End</div>
+          </th>
+          <th>
+            <div class="headerDiv">End Date</div>
+          </th>
+          
           <th>
             <div class="headerDiv">Main Project</div>
           </th>
@@ -138,11 +144,31 @@
             <div class="headerDiv">Account Name</div>
           </th>
           <th>
+            <div class="headerDiv">Shadow Aging</div>
+          </th>
+          <th>
+            <div class="headerDiv">Shadow Ageing Bucket</div>
+          </th>
+          <th>
+            <div class="headerDiv">Bench Aging in Days</div>
+          </th>
+          <th>
+            <div class="headerDiv">Bench Aging Range</div>
+          </th>
+          <th>
+            <div class="headerDiv">Training Model</div>
+          </th>
+          
+          <th>
             <div class="headerDiv">Training Batch Id</div>
           </th>
           <th>
             <div class="headerDiv">Mentor Name</div>
           </th>
+          <th>
+            <div class="headerDiv">Initial Training End Date</div>
+          </th>
+          
           <th>
             <div class="headerDiv">Training Score Feedback</div>
           </th>
@@ -204,6 +230,10 @@
             <div class="headerDiv">Sub-Status</div>
           </th>
           <th>
+            <div class="headerDiv">BOTP Closure Status</div>
+          </th>
+          
+          <th>
             <div class="headerDiv">College</div>
           </th>
           <th>
@@ -221,9 +251,6 @@
           <th>
             <div class="headerDiv">Recruitment Coding Score</div>
           </th>
-          <!-- <th>
-            <div class="headerDiv">Action</div>
-          </th> -->
         </tr>
       </thead>
       <tbody>
@@ -261,6 +288,29 @@
             </div> -->
           </td>
           <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.mobilePhoneNumber}}</span>
+            <input *ngIf="candidate.isEdit" name="mobilePhoneNumber" id="mobilePhoneNumber"
+              [(ngModel)]="candidate.mobilePhoneNumber">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.office}}</span>
+            <input *ngIf="candidate.isEdit" name="office" id="office" [(ngModel)]="candidate.office">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.joiningDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="joiningDate" id="joiningDate" [(ngModel)]="candidate.joiningDate">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.globalPractice}}</span>
+            <input *ngIf="candidate.isEdit" name="globalPractice" id="globalPractice" [(ngModel)]="candidate.globalPractice">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.keySkillsSummary}}</span>
+            <input *ngIf="candidate.isEdit" name="keySkillsSummary" id="keySkillsSummary"
+              [(ngModel)]="candidate.keySkillsSummary">
+          </td>
+          <td>
             <span>{{candidate.localGrade}}</span>
 
           </td>
@@ -272,6 +322,24 @@
             <div *ngIf="candidate.isEdit">
               <input name="currentDayStatus" id="currentDayStatus" [(ngModel)]="candidate.currentDayStatus">
             </div>
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.currentAvailability}}</span>
+            <input *ngIf="candidate.isEdit" name="currentAvailability" id="currentAvailability"
+              [(ngModel)]="candidate.currentAvailability">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.type}}</span>
+            <input *ngIf="candidate.isEdit" name="type" id="type" [(ngModel)]="candidate.type">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.startDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="startDate" id="startDate" [(ngModel)]="candidate.startDate">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.endDate | date : "dd/MM/yyyy" }}</span>
+            <input *ngIf="candidate.isEdit" name="endDate" id="endDate" [(ngModel)]="candidate.endDate">
           </td>
 
           <td>
@@ -291,6 +359,28 @@
               <input name="accountName" id="accountName" [(ngModel)]="candidate.accountName">
             </div>
           </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.shadowAgeing}}</span>
+            <input *ngIf="candidate.isEdit" name="shadowAgeing" id="shadowAgeing" [(ngModel)]="candidate.shadowAgeing">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.shadowAgeingBucket}}</span>
+            <input *ngIf="candidate.isEdit" name="shadowAgeingBucket" id="shadowAgeingBucket"
+              [(ngModel)]="candidate.shadowAgeingBucket">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.benchAgingInDays}}</span>
+            <input *ngIf="candidate.isEdit" name="benchAgingInDays" id="benchAgingInDays"
+              [(ngModel)]="candidate.benchAgingInDays">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.benchAgingRange}}</span>
+            <input *ngIf="candidate.isEdit" name="benchAgingRange" id="benchAgingRange" [(ngModel)]="candidate.benchAgingRange">
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.trainingModel}}</span>
+            <input *ngIf="candidate.isEdit" name="trainingModel" id="trainingModel" [(ngModel)]="candidate.trainingModel">
+          </td>
 
           <td>
             <div *ngIf="!candidate.isEdit">
@@ -309,7 +399,12 @@
               <input name="mentorName" id="mentorName" [(ngModel)]="candidate.mentorName">
             </div>
           </td>
-
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.initialTrainingEndDate | date :
+              "dd/MM/yyyy" }}</span>
+            <input *ngIf="candidate.isEdit" name="initialTrainingEndDate" id="initialTrainingEndDate"
+              [(ngModel)]="candidate.initialTrainingEndDate">
+          </td>
 
           <td>
             <div *ngIf="!candidate.isEdit">
@@ -512,6 +607,11 @@
             <div *ngIf="candidate.isEdit">
               <input name="subStatus" id="subStatus" [(ngModel)]="candidate.subStatus">
             </div>
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.botpClosureStatus}}</span>
+            <input *ngIf="candidate.isEdit" name="botpClosureStatus" id="botpClosureStatus"
+              [(ngModel)]="candidate.botpClosureStatus">
           </td>
 
           <td>

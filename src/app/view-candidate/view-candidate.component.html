@@ -88,7 +88,7 @@
             <div class="headerDiv">Sr.No</div>
           </th>
           <th>
-            <div class="headerDiv">BaseLine Date </div>
+            <div class="headerDiv">BaseLine Date</div>
           </th>
           <th>
             <div class="headerDiv">Initial BU</div>
@@ -103,11 +103,39 @@
             <div class="headerDiv">E-mail</div>
           </th>
           <th>
+            <div class="headerDiv">Mobile Phone Number</div>
+          </th>
+          <th>
+            <div class="headerDiv">Office</div>
+          </th>
+          <th>
+            <div class="headerDiv">Joining Date</div>
+          </th>
+          <th>
+            <div class="headerDiv">Global Practice</div>
+          </th>
+          <th>
+            <div class="headerDiv">Key Skills Summary (Notes 3)</div>
+          </th>
+          <th>
             <div class="headerDiv">Local Grade</div>
           </th>
           <th>
             <div class="headerDiv">Current Day Status</div>
           </th>
+          <th>
+            <div class="headerDiv">Current Availability</div>
+          </th>
+          <th>
+            <div class="headerDiv">Type</div>
+          </th>
+          <th>
+            <div class="headerDiv">Start End</div>
+          </th>
+          <th>
+            <div class="headerDiv">End Date</div>
+          </th>
+          
           <th>
             <div class="headerDiv">Main Project</div>
           </th>
@@ -115,11 +143,31 @@
             <div class="headerDiv">Account Name</div>
           </th>
           <th>
+            <div class="headerDiv">Shadow Aging</div>
+          </th>
+          <th>
+            <div class="headerDiv">Shadow Ageing Bucket</div>
+          </th>
+          <th>
+            <div class="headerDiv">Bench Aging in Days</div>
+          </th>
+          <th>
+            <div class="headerDiv">Bench Aging Range</div>
+          </th>
+          <th>
+            <div class="headerDiv">Training Model</div>
+          </th>
+          
+          <th>
             <div class="headerDiv">Training Batch Id</div>
           </th>
           <th>
             <div class="headerDiv">Mentor Name</div>
           </th>
+          <th>
+            <div class="headerDiv">Initial Training End Date</div>
+          </th>
+          
           <th>
             <div class="headerDiv">Training Score Feedback</div>
           </th>
@@ -181,6 +229,10 @@
             <div class="headerDiv">Sub-Status</div>
           </th>
           <th>
+            <div class="headerDiv">BOTP Closure Status</div>
+          </th>
+          
+          <th>
             <div class="headerDiv">College</div>
           </th>
           <th>
@@ -209,214 +261,345 @@
           </td>
           <td><span>{{i + 1}}</span></td>
           <td>
-            <span>{{candidate.baselineDate |
-              date:'dd/MM/yyyy'}}</span>
+            <span>{{ candidate.baselineDate | date : "dd/MM/yyyy" }}</span>
             <!-- <input *ngIf="candidate.isEdit" name="baselineDate" id="baselineDate" [(ngModel)]="candidate.baselineDate"> -->
           </td>
           <td>
-            <span>{{candidate.initialBu}}</span>
+            <span>{{ candidate.initialBu }}</span>
             <!-- <input *ngIf="candidate.isEdit" name="empId" id="empId" [(ngModel)]="candidate.empId"> -->
           </td>
           <td>
-            <span>{{candidate.empId}}</span>
+            <span>{{ candidate.empId }}</span>
             <!-- <input *ngIf="candidate.isEdit" name="empId" id="empId" [(ngModel)]="candidate.empId"> -->
           </td>
-
+          
           <td>
-            <span>{{candidate.employeeName}}</span>
+            <span>{{ candidate.employeeName }}</span>
             <!-- <input *ngIf="candidate.isEdit" name="employeeName" id="employeeName" [(ngModel)]="candidate.employeeName"> -->
           </td>
           <td class="sticky-column">
-            <span>{{candidate.email}}</span>
-            <!-- <div *ngIf="candidate.isEdit" class="save-button-container">
-              <button type="submit" (click)="save(candidate)" class="buttons save-button">Save</button>
-            </div> -->
+            <span>{{ candidate.email }}</span>
+            <div *ngIf="candidate.isEdit" class="save-button-container">
+              <button type="submit" (click)="save(candidate)" class="buttons save-button">
+                Save
+              </button>
+            </div>
           </td>
           <td>
-            <span>{{candidate.localGrade}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.mobilePhoneNumber
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="mobilePhoneNumber" id="mobilePhoneNumber"
+              [(ngModel)]="candidate.mobilePhoneNumber" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.office
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="office" id="office" [(ngModel)]="candidate.office" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.joiningDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="joiningDate" id="joiningDate" [(ngModel)]="candidate.joiningDate" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.globalPractice
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="globalPractice" id="globalPractice" [(ngModel)]="candidate.globalPractice" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.keySkillsSummary
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="keySkillsSummary" id="keySkillsSummary"
+              [(ngModel)]="candidate.keySkillsSummary" />
+          </td>
+          
+          <td>
+            <span>{{ candidate.localGrade }}</span>
             <!-- <input *ngIf="candidate.isEdit" name="localGrade" id="localGrade" [(ngModel)]="candidate.localGrade"> -->
           </td>
-
+          
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.currentDayStatus}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.currentDayStatus
+              }}</span>
             <input *ngIf="candidate.isEdit" name="currentDayStatus" id="currentDayStatus"
-              [(ngModel)]="candidate.currentDayStatus">
-          </td>
-
-          <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.mainProject}}</span>
-            <input *ngIf="candidate.isEdit" name="mainProject" id="mainProject" [(ngModel)]="candidate.mainProject">
-          </td>
-
-          <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.accountName}}</span>
-            <input *ngIf="candidate.isEdit" name="accountName" id="accountName" [(ngModel)]="candidate.accountName">
-          </td>
-
-          <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.trainingBatchId}}</span>
-            <input *ngIf="candidate.isEdit" name="trainingBatchId" id="trainingBatchId"
-              [(ngModel)]="candidate.trainingBatchId">
+              [(ngModel)]="candidate.currentDayStatus" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.mentorName}}</span>
-            <input *ngIf="candidate.isEdit" name="mentorName" id="mentorName" [(ngModel)]="candidate.mentorName">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.currentAvailability
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="currentAvailability" id="currentAvailability"
+              [(ngModel)]="candidate.currentAvailability" />
           </td>
-
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.trainingScoreFeedback}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.type
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="type" id="type" [(ngModel)]="candidate.type" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.startDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="startDate" id="startDate" [(ngModel)]="candidate.startDate" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.endDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="endDate" id="endDate" [(ngModel)]="candidate.endDate" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.mainProject
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="mainProject" id="mainProject" [(ngModel)]="candidate.mainProject" />
+          </td>
+          
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.accountName
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="accountName" id="accountName" [(ngModel)]="candidate.accountName" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.shadowAgeing
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="shadowAgeing" id="shadowAgeing" [(ngModel)]="candidate.shadowAgeing" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.shadowAgeingBucket
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="shadowAgeingBucket" id="shadowAgeingBucket"
+              [(ngModel)]="candidate.shadowAgeingBucket" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.benchAgingInDays
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="benchAgingInDays" id="benchAgingInDays"
+              [(ngModel)]="candidate.benchAgingInDays" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.benchAgingRange
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="benchAgingRange" id="benchAgingRange" [(ngModel)]="candidate.benchAgingRange" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.trainingModel
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="trainingModel" id="trainingModel" [(ngModel)]="candidate.trainingModel" />
+          </td>
+          
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.trainingBatchId
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="trainingBatchId" id="trainingBatchId" [(ngModel)]="candidate.trainingBatchId" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.mentorName
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="mentorName" id="mentorName" [(ngModel)]="candidate.mentorName" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.initialTrainingEndDate | date : "dd/MM/yyyy"
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="initialTrainingEndDate" id="initialTrainingEndDate"
+              [(ngModel)]="candidate.initialTrainingEndDate" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.trainingScoreFeedback
+              }}</span>
             <input *ngIf="candidate.isEdit" name="trainingScoreFeedback" id="trainingScoreFeedback"
-              [(ngModel)]="candidate.trainingScoreFeedback">
+              [(ngModel)]="candidate.trainingScoreFeedback" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.bucket}}</span>
-            <input *ngIf="candidate.isEdit" name="bucket" id="bucket" [(ngModel)]="candidate.bucket">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.bucket
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="bucket" id="bucket" [(ngModel)]="candidate.bucket" />
           </td>
           <td>
-            <div style="width: 350px;
-              overflow: auto;
-              white-space: nowrap;">
-              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.qualitativeFeedback}}</span>
+            <div style="width: 350px; overflow: auto; white-space: nowrap">
+              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{ candidate.qualitativeFeedback }}</span>
               <input *ngIf="candidate.isEdit" name="qualitativeFeedback" id="qualitativeFeedback"
-                [(ngModel)]="candidate.qualitativeFeedback">
+                [(ngModel)]="candidate.qualitativeFeedback" />
             </div>
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.oceanAttemptedTillDate}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.oceanAttemptedTillDate
+              }}</span>
             <input *ngIf="candidate.isEdit" name="oceanAttemptedTillDate" id="oceanAttemptedTillDate"
-              [(ngModel)]="candidate.oceanAttemptedTillDate">
+              [(ngModel)]="candidate.oceanAttemptedTillDate" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.oceanScoreIfAttempted}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.oceanScoreIfAttempted
+              }}</span>
             <input *ngIf="candidate.isEdit" name="oceanScoreIfAttempted" id="oceanScoreIfAttempted"
-              [(ngModel)]="candidate.oceanScoreIfAttempted">
+              [(ngModel)]="candidate.oceanScoreIfAttempted" />
           </td>
 
 
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.hsCertificationDone}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.hsCertificationDone
+              }}</span>
             <input *ngIf="candidate.isEdit" name="hsCertificationDone" id="hsCertificationDone"
-              [(ngModel)]="candidate.hsCertificationDone">
+              [(ngModel)]="candidate.hsCertificationDone" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.digiDashboardUpdatedRegularly
-              | date:'dd/MM/yyyy'}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.digiDashboardUpdatedRegularly | date : "dd/MM/yyyy"
+              }}</span>
             <input *ngIf="candidate.isEdit" name="digiDashboardUpdatedRegularly" id="digiDashboardUpdatedRegularly"
-              [(ngModel)]="candidate.digiDashboardUpdatedRegularly">
+              [(ngModel)]="candidate.digiDashboardUpdatedRegularly" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.accountShadowsDone}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.accountShadowsDone
+              }}</span>
             <input *ngIf="candidate.isEdit" name="accountShadowsDone" id="accountShadowsDone"
-              [(ngModel)]="candidate.accountShadowsDone">
+              [(ngModel)]="candidate.accountShadowsDone" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.currentStatus}}</span>
-            <input *ngIf="candidate.isEdit" name="currentStatus" id="currentStatus"
-              [(ngModel)]="candidate.currentStatus">
-          </td>
-          <td style=" ">
-            <div style="width: 350px;
-                overflow: auto;
-                white-space: nowrap;">
-              <span (click)="makeEditable(candidate)"
-                *ngIf="!candidate.isEdit">{{candidate.upskillingWhileOnBench}}</span>
-              <input *ngIf="candidate.isEdit" name="upskillingWhileOnBench" id="upskillingWhileOnBench"
-                [(ngModel)]="candidate.upskillingWhileOnBench">
-            </div>
-          </td>
-          <td>
-            <div style="width: 350px;
-                overflow: auto;
-                white-space: nowrap;">
-              <span (click)="makeEditable(candidate)"
-                *ngIf="!candidate.isEdit">{{candidate.currentInitiativeInvolvedIn}}</span>
-              <input *ngIf="candidate.isEdit" name="currentInitiativeInvolvedIn" id="currentInitiativeInvolvedIn"
-                [(ngModel)]="candidate.currentInitiativeInvolvedIn">
-            </div>
-          </td>
-          <td>
-            <div style="width: 350px;
-                overflow: auto;
-                white-space: nowrap;">
-              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.workDoneLast3Months}}</span>
-              <input *ngIf="candidate.isEdit" name="workDoneLast3Months" id="workDoneLast3Months"
-                [(ngModel)]="candidate.workDoneLast3Months">
-            </div>
-          </td>
-          <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.personReachable}}</span>
-            <input *ngIf="candidate.isEdit" name="personReachable" id="personReachable"
-              [(ngModel)]="candidate.personReachable">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.currentStatus
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="currentStatus" id="currentStatus" [(ngModel)]="candidate.currentStatus" />
           </td>
           <td style="">
-            <div style="width: 350px;
-               overflow: auto;
-               white-space: nowrap;
-               
-               ">
-              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.pscRemarks}}</span>
-              <input *ngIf="candidate.isEdit" name="pscRemarks" id="pscRemarks" [(ngModel)]="candidate.pscRemarks">
+            <div style="width: 350px; overflow: auto; white-space: nowrap">
+              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{ candidate.upskillingWhileOnBench }}</span>
+              <input *ngIf="candidate.isEdit" name="upskillingWhileOnBench" id="upskillingWhileOnBench"
+                [(ngModel)]="candidate.upskillingWhileOnBench" />
             </div>
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.btoAverageQ3Attendance}}</span>
+            <div style="width: 350px; overflow: auto; white-space: nowrap">
+              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{ candidate.currentInitiativeInvolvedIn }}</span>
+              <input *ngIf="candidate.isEdit" name="currentInitiativeInvolvedIn" id="currentInitiativeInvolvedIn"
+                [(ngModel)]="candidate.currentInitiativeInvolvedIn" />
+            </div>
+          </td>
+          <td>
+            <div style="width: 350px; overflow: auto; white-space: nowrap">
+              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{ candidate.workDoneLast3Months }}</span>
+              <input *ngIf="candidate.isEdit" name="workDoneLast3Months" id="workDoneLast3Months"
+                [(ngModel)]="candidate.workDoneLast3Months" />
+            </div>
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.personReachable
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="personReachable" id="personReachable" [(ngModel)]="candidate.personReachable" />
+          </td>
+          <td style="">
+            <div style="width: 350px; overflow: auto; white-space: nowrap">
+              <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{ candidate.pscRemarks }}</span>
+              <input *ngIf="candidate.isEdit" name="pscRemarks" id="pscRemarks" [(ngModel)]="candidate.pscRemarks" />
+            </div>
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.btoAverageQ3Attendance
+              }}</span>
             <input *ngIf="candidate.isEdit" name="btoAverageQ3Attendance" id="btoAverageQ3Attendance"
-              [(ngModel)]="candidate.btoAverageQ3Attendance">
+              [(ngModel)]="candidate.btoAverageQ3Attendance" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.sapienceAvgLast3Months}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.sapienceAvgLast3Months
+              }}</span>
             <input *ngIf="candidate.isEdit" name="sapienceAvgLast3Months" id="sapienceAvgLast3Months"
-              [(ngModel)]="candidate.sapienceAvgLast3Months">
+              [(ngModel)]="candidate.sapienceAvgLast3Months" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.leaveBalance}}</span>
-            <input *ngIf="candidate.isEdit" name="leaveBalance" id="leaveBalance" [(ngModel)]="candidate.leaveBalance">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.leaveBalance
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="leaveBalance" id="leaveBalance" [(ngModel)]="candidate.leaveBalance" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.leaveAppliedLast3Months}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.leaveAppliedLast3Months
+              }}</span>
             <input *ngIf="candidate.isEdit" name="leaveAppliedLast3Months" id="leaveAppliedLast3Months"
-              [(ngModel)]="candidate.leaveAppliedLast3Months">
+              [(ngModel)]="candidate.leaveAppliedLast3Months" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.botpStatus}}</span>
-            <input *ngIf="candidate.isEdit" name="botpStatus" id="botpStatus" [(ngModel)]="candidate.botpStatus">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.botpStatus
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="botpStatus" id="botpStatus" [(ngModel)]="candidate.botpStatus" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.subStatus}}</span>
-            <input *ngIf="candidate.isEdit" name="subStatus" id="subStatus" [(ngModel)]="candidate.subStatus">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.subStatus
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="subStatus" id="subStatus" [(ngModel)]="candidate.subStatus" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.college}}</span>
-            <input *ngIf="candidate.isEdit" name="college" id="college" [(ngModel)]="candidate.college">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.botpClosureStatus
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="botpClosureStatus" id="botpClosureStatus"
+              [(ngModel)]="candidate.botpClosureStatus" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.collegeType}}</span>
-            <input *ngIf="candidate.isEdit" name="collegeType" id="collegeType" [(ngModel)]="candidate.collegeType">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.college
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="college" id="college" [(ngModel)]="candidate.college" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.education}}</span>
-            <input *ngIf="candidate.isEdit" name="education" id="education" [(ngModel)]="candidate.education">
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.collegeType
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="collegeType" id="collegeType" [(ngModel)]="candidate.collegeType" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{candidate.recruitmentSwarScore}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.education
+              }}</span>
+            <input *ngIf="candidate.isEdit" name="education" id="education" [(ngModel)]="candidate.education" />
+          </td>
+          <td>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.recruitmentSwarScore
+              }}</span>
             <input *ngIf="candidate.isEdit" name="recruitmentSwarScore" id="recruitmentSwarScore"
-              [(ngModel)]="candidate.recruitmentSwarScore">
+              [(ngModel)]="candidate.recruitmentSwarScore" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.recruitmentAptitudeScore}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.recruitmentAptitudeScore
+              }}</span>
             <input *ngIf="candidate.isEdit" name="recruitmentAptitudeScore" id="recruitmentAptitudeScore"
-              [(ngModel)]="candidate.recruitmentAptitudeScore">
+              [(ngModel)]="candidate.recruitmentAptitudeScore" />
           </td>
           <td>
-            <span (click)="makeEditable(candidate)"
-              *ngIf="!candidate.isEdit">{{candidate.recruitmentCodingScore}}</span>
+            <span (click)="makeEditable(candidate)" *ngIf="!candidate.isEdit">{{
+              candidate.recruitmentCodingScore
+              }}</span>
             <input *ngIf="candidate.isEdit" name="recruitmentCodingScore" id="recruitmentCodingScore"
-              [(ngModel)]="candidate.recruitmentCodingScore">
+              [(ngModel)]="candidate.recruitmentCodingScore" />
           </td>
 
         </tr>
