@@ -29,6 +29,7 @@ export class AdminviewComponent implements OnInit {
   selectedValue: string = '';
   editedCandidates: Interview[] = [];
   bulkEditingMode: boolean = false;
+  selectedCandidateEmpId:number[] = [];
 
   constructor(
     private http: HttpClient,
@@ -51,7 +52,7 @@ export class AdminviewComponent implements OnInit {
   editMultipleCandidates() {
     // Toggle the editing mode for selected candidates
     this.searchservice.filteredCandidates.forEach((candidate: Interview) => {
-      if (candidate.isSelected) {
+      if (this.selectedCandidateEmpId.includes(candidate.empId)) {
         candidate.isEdit = !candidate.isEdit;
 
         // Add the candidate to the editedCandidates list if in edit mode
@@ -140,23 +141,36 @@ export class AdminviewComponent implements OnInit {
       (candidate) => candidate.isSelected
     );
   }
-
-  deleteCandidate(candidate: Interview) {
-    const index = this.selectedCandidates.indexOf(candidate);
-    if (index === -1) {
-      this.selectedCandidates.push(candidate);
-    } else {
-      this.selectedCandidates.splice(index, 1);
+  // implementing Delete Functionality nikkhil-ss
+  selectAll(event:any){
+    console.log("event",event);
+    console.log("event target checked", event.target.checked);
+    if(event.target.checked){
+      this.candidates.forEach((candidate) => {
+        
+        this.selectedCandidateEmpId.push(candidate.empId);
+      });
+    }else{
+      this.selectedCandidateEmpId=[];
     }
+    console.log(this.selectedCandidateEmpId);
+  }
+  specificCheck(event:any,empId:number){
+    
+    if(event.target.checked){
+      this.selectedCandidateEmpId.push(empId);
+    }else{
+      this.selectedCandidateEmpId=this.selectedCandidateEmpId.filter((emp)=>emp!=empId);
+    }
+    console.log(this.selectedCandidateEmpId);
+
   }
 
+
+
+
   deleteSelectedCandidates() {
-    const empIds = this.selectedCandidates.map((candidate) => candidate.empId);
-    if (empIds.length === 0) {
-      // Handle case where no candidates are selected
-      console.log('No candidates selected for deletion.');
-      return;
-    }
+   
 
     // Perform the delete operation for multiple candidates
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -169,7 +183,7 @@ export class AdminviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // User clicked 'Yes', perform deletion logic here
-        this.performDeleteMultipleCandidates(empIds);
+        this.performDeleteMultipleCandidates(this.selectedCandidateEmpId);
       } else {
         // User clicked 'No' or closed the dialog, handle accordingly
         console.log('User clicked No or closed the dialog');

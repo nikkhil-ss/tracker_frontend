@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Interview } from '../Models/interview';
 import { Router } from '@angular/router';
@@ -27,73 +27,11 @@ export class ViewCandidateComponent implements OnInit {
   mentorName: any;
   editedCandidates: Interview[] = [];
   bulkEditingMode: boolean = false;
-
+  selectedCandidateEmpId:number[] = [];
   url = url2 + `byMentorName/`;
 
   selectedValue: string = '';
   selectedCandidates: Interview[] = [];
-
-  searchFieldText: string = '';
-  checkedOptions: string[] = [];
-
-  checkboxInputText: { [key: string]: string } = {};
-
-  filterOptions: any = {
-    baselineDate: false,
-    empId: false,
-    employeeName: false,
-    email: false,
-    localGrade: false,
-    currentDayStatus: false,
-    mainProject: false,
-    accountName: false,
-    trainingBatchId: false,
-    mentorName: false,
-    trainingScoreFeedback: false,
-    bucket: false,
-    qualitativeFeedback: false,
-    oceanAttemptedTillDate: false,
-    oceanScoreIfAttempted: false,
-    hsCertificationDone: false,
-    digiDashboardUpdatedRegularly: false,
-    accountShadowsDone: false,
-    currentStatus: false,
-    upskillingWhileOnBench: false,
-    currentInitiativeInvolvedIn: false,
-    workDoneLast3Months: false,
-    personReachable: false,
-    pscRemarks: false,
-    btoAverageQ3Attendance: false,
-    sapienceAvgLast3Months: false,
-    leaveBalance: false,
-    leaveAppliedLast3Months: false,
-    botpStatus: false,
-    subStatus: false,
-    college: false,
-    collegeType: false,
-    education: false,
-    recruitmentSwarScore: false,
-    recruitmentAptitudeScore: false,
-    recruitmentCodingScore: false,
-    mobilePhoneNumber: '',
-    office: false,
-    joiningDate: false,
-    globalPractice: false,
-    keySkillsSummary: false,
-    currentAvailability: false,
-    type: false,
-    startDate: false,
-    endDate: false,
-    shadowAgeing: false,
-    shadowAgeingBucket: false,
-    benchAgingInDays: false,
-    benchAgingRange: false,
-    trainingModel: false,
-    initialTrainingEndDate: false,
-    botpClosureStatus: false
-  };
-
-  filteredCheckboxes: string[] = Object.keys(this.filterOptions); // Array to store filtered checkboxes
 
   constructor(
     private http: HttpClient,
@@ -101,9 +39,7 @@ export class ViewCandidateComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
     private dialog: MatDialog, // Inject MatDialog
-    public searchservice: SearchServiceService,
-    private renderer: Renderer2,
-    private el: ElementRef
+    public searchservice: SearchServiceService
   ) {}
 
   toggleBulkEditingMode() {
@@ -113,7 +49,7 @@ export class ViewCandidateComponent implements OnInit {
   editMultipleCandidates() {
     // Toggle the editing mode for selected candidates
     this.searchservice.filteredCandidates.forEach((candidate: Interview) => {
-      if (candidate.isSelected) {
+      if (this.selectedCandidateEmpId.includes(candidate.empId)) {
         candidate.isEdit = !candidate.isEdit;
 
         // Add the candidate to the editedCandidates list if in edit mode
@@ -280,23 +216,34 @@ export class ViewCandidateComponent implements OnInit {
     }
   }
 
-  deleteCandidate(candidate: Interview) {
-    const index = this.selectedCandidates.indexOf(candidate);
-    if (index === -1) {
-      this.selectedCandidates.push(candidate);
-    } else {
-      this.selectedCandidates.splice(index, 1);
+   selectAll(event:any){
+    console.log("event",event);
+    console.log("event target checked", event.target.checked);
+    if(event.target.checked){
+      this.candidates.forEach((candidate) => {
+        
+        this.selectedCandidateEmpId.push(candidate.empId);
+      });
+    }else{
+      this.selectedCandidateEmpId=[];
     }
+    console.log(this.selectedCandidateEmpId);
   }
 
-  deleteSelectedCandidates() {
-    const empIds = this.selectedCandidates.map((candidate) => candidate.empId);
-    if (empIds.length === 0) {
-      // Handle case where no candidates are selected
-      console.log('No candidates selected for deletion.');
-      return;
+  specificCheck(event:any,empId:number){
+    
+    if(event.target.checked){
+      this.selectedCandidateEmpId.push(empId);
+    }else{
+      this.selectedCandidateEmpId=this.selectedCandidateEmpId.filter((emp)=>emp!=empId);
     }
+    console.log(this.selectedCandidateEmpId);
 
+  }
+
+
+
+  deleteSelectedCandidates() {
     // Perform the delete operation for multiple candidates
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
@@ -308,7 +255,7 @@ export class ViewCandidateComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // User clicked 'Yes', perform deletion logic here
-        this.performDeleteMultipleCandidates(empIds);
+        this.performDeleteMultipleCandidates(this.selectedCandidateEmpId);
       } else {
         // User clicked 'No' or closed the dialog, handle accordingly
         console.log('User clicked No or closed the dialog');
@@ -410,94 +357,266 @@ export class ViewCandidateComponent implements OnInit {
     candidate.isEditing = true;
   }
 
-   // Function to reset search text and filterOptions
-   resetFilters() {
-    this.searchFieldText = ''; // Reset search text
-    Object.keys(this.filterOptions).forEach(key => this.filterOptions[key] = false);
-    this.checkboxInputText = {};
-
-    this.closeModel();
-    this.openModel();
-  }
-
-  //saving checked options
-  updateCheckedCheckboxes(option: string): void {
-    if (this.checkedOptions.includes(option)) {
-      // Remove the option if it's already in the array
-      this.checkedOptions = this.checkedOptions.filter(item => item !== option);
-    } else {
-      // Add the option if it's not in the array
-      this.checkedOptions.push(option);
-    }
-    if (!this.filterOptions[option]) {
-      // Uncheck the checkbox
-      this.checkboxInputText[option] = '';
-    }
-  }
- 
-  //search filter method
- 
-  applyFilter() {
-    console.log('Filtering candidates - Search Field Text:', this.searchFieldText);
-    console.log('Filtering candidates - Selected options: ', this.checkedOptions);
-    console.log('Filtering candidates - Selected Checkbox input: ', this.checkboxInputText);
-  
-    if (this.checkedOptions.length===0) {
+  search() {
+    console.log('Filtering candidates - Search Text:', this.searchText);
+    console.log('Filtering candidates - Selected option: ', this.selectedValue);
+    if (!this.searchText || this.searchText.trim() === '') {
       // If search text is empty, show all candidates
       this.searchservice.filteredCandidates = this.candidates;
     } else {
-      
-      this.searchservice.filteredCandidates = this.candidates.filter(candidate => {
-        return this.checkedOptions.every(checkedOption => {
-          const lowerCaseSearchText = this.checkboxInputText[checkedOption]?.toString().toLowerCase() || '';
-          const candidateValue = (candidate as any)[checkedOption]?.toString().toLowerCase() || '';
-          return candidateValue.includes(lowerCaseSearchText);
-        });
-      });
+      // Filter candidates based on search text
+      const lowerCaseSearchText = this.searchText.toLowerCase();
+      // console.log("candidates filtering" + this.candidates);
+
+      this.searchservice.filteredCandidates = this.candidates.filter(
+        (candidate) => {
+          if (this.selectedValue === 'employeeName') {
+            return (
+              candidate.employeeName &&
+              candidate.employeeName.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'email') {
+            return (
+              candidate.email &&
+              candidate.email.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'empId') {
+            // Strict equality check
+            return (
+              candidate.empId &&
+              candidate.empId.toString().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'accountName') {
+            return (
+              candidate.accountName &&
+              candidate.accountName.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'baselineDate') {
+            // Strict equality check
+            return (
+              candidate.baselineDate &&
+              candidate.baselineDate.toString().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'initialBu') {
+            return (
+              candidate.initialBu &&
+              candidate.initialBu.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'accountShadowsDone') {
+            return (
+              candidate.accountShadowsDone &&
+              candidate.accountShadowsDone
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'botpStatus') {
+            return (
+              candidate.botpStatus &&
+              candidate.botpStatus.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'btoAverageQ3Attendance') {
+            return (
+              candidate.btoAverageQ3Attendance &&
+              candidate.btoAverageQ3Attendance
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'bucket') {
+            return (
+              candidate.bucket &&
+              candidate.bucket.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'college') {
+            return (
+              candidate.college &&
+              candidate.college.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'collegeType') {
+            return (
+              candidate.collegeType &&
+              candidate.collegeType.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'currentDayStatus') {
+            return (
+              candidate.currentDayStatus &&
+              candidate.currentDayStatus
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'digiDashboardUpdatedRegularly') {
+            // Strict equality check
+            return (
+              candidate.digiDashboardUpdatedRegularly &&
+              candidate.digiDashboardUpdatedRegularly
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'currentInitiativeInvolvedIn') {
+            return (
+              candidate.currentInitiativeInvolvedIn &&
+              candidate.currentInitiativeInvolvedIn
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'currentStatus') {
+            return (
+              candidate.currentStatus &&
+              candidate.currentStatus
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'education') {
+            return (
+              candidate.education &&
+              candidate.education.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'hsCertificationDone') {
+            return (
+              candidate.hsCertificationDone &&
+              candidate.hsCertificationDone
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'leaveAppliedLast3Months') {
+            // Strict equality check
+            return (
+              candidate.leaveAppliedLast3Months &&
+              candidate.leaveAppliedLast3Months
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+            // return candidate.leaveAppliedLast3Months.toString().includes(lowerCaseSearchText);
+          } else if (this.selectedValue === 'leaveBalance') {
+            // Strict equality check
+            // return candidate.leaveBalance.toString().includes(lowerCaseSearchText);
+            return (
+              candidate.leaveBalance &&
+              candidate.leaveBalance.toString().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'localGrade') {
+            return (
+              candidate.localGrade &&
+              candidate.localGrade.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'mainProject') {
+            return (
+              candidate.mainProject &&
+              candidate.mainProject.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'mentorName') {
+            return (
+              candidate.mentorName &&
+              candidate.mentorName.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'oceanAttemptedTillDate') {
+            return (
+              candidate.oceanAttemptedTillDate &&
+              candidate.oceanAttemptedTillDate
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'oceanScoreIfAttempted') {
+            // Strict equality check
+            // return candidate.oceanScoreIfAttempted === parseFloat(lowerCaseSearchText);
+            return (
+              candidate.oceanScoreIfAttempted &&
+              candidate.oceanScoreIfAttempted
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'personReachable') {
+            return (
+              candidate.personReachable &&
+              candidate.personReachable
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'pscRemarks') {
+            return (
+              candidate.pscRemarks &&
+              candidate.pscRemarks.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'qualitativeFeedback') {
+            return (
+              candidate.qualitativeFeedback &&
+              candidate.qualitativeFeedback
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'recruitmentAptitudeScore') {
+            // Strict equality check
+            return (
+              candidate.recruitmentAptitudeScore &&
+              candidate.recruitmentAptitudeScore
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'recruitmentCodingScore') {
+            // Strict equality check
+            return (
+              candidate.recruitmentCodingScore &&
+              candidate.recruitmentCodingScore
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'recruitmentSwarScore') {
+            // Strict equality check
+            return (
+              candidate.recruitmentSwarScore &&
+              candidate.recruitmentSwarScore
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'sapienceAvgLast3Months') {
+            // Strict equality check
+            // return candidate.sapienceAvgLast3Months  === parseFloat(lowerCaseSearchText);
+            return (
+              candidate.sapienceAvgLast3Months &&
+              candidate.sapienceAvgLast3Months
+                .toString()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'subStatus') {
+            return (
+              candidate.subStatus &&
+              candidate.subStatus.toLowerCase().includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'trainingBatchId') {
+            return (
+              candidate.trainingBatchId &&
+              candidate.trainingBatchId
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'trainingScoreFeedback') {
+            return (
+              candidate.trainingScoreFeedback &&
+              candidate.trainingScoreFeedback
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else if (this.selectedValue === 'upskillingWhileOnBench') {
+            return (
+              candidate.upskillingWhileOnBench &&
+              candidate.upskillingWhileOnBench
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          } else {
+            return (
+              candidate.workDoneLast3Months &&
+              candidate.workDoneLast3Months
+                .toLowerCase()
+                .includes(lowerCaseSearchText)
+            );
+          }
+        }
+      );
     }
     // Log the filtered candidates for debugging
     console.log('Filtered Candidates:', this.searchservice.filteredCandidates);
   }
-// end of filter method
-
-// Add the getFilteredOptions() function
-getFilteredOptions(): string[] {
-  const searchText = this.searchFieldText.toLowerCase();
-
-  // Return the filteredOptions array based on the search text
-  return this.filteredCheckboxes
-    .filter(option => option.toLowerCase().includes(searchText));
-}
-
-getFilterOptionsKeys(): string[] {
-  if (this.searchFieldText.trim() === '') {
-    return Object.keys(this.filterOptions);
-  } else {
-    return [];
-  }
-}
-
-openModel() {
-  // Get the modal element using Angular ElementRef
-  const modal = this.el.nativeElement.querySelector('#exampleModal');
- 
-  // Add the 'show' class to display the modal
-  this.renderer.addClass(modal, 'show');
- 
-  // Add the 'modal-open' class to the body to allow for scrolling
-  this.renderer.addClass(document.body, 'modal-open');
-}
- 
-closeModel() {
-  // Get the modal element using Angular ElementRef
-  const modal = this.el.nativeElement.querySelector('#exampleModal');
- 
-  // Remove the 'show' class to hide the modal
-  this.renderer.removeClass(modal, 'show');
- 
-  // Remove the 'modal-open' class from the body
-  this.renderer.removeClass(document.body, 'modal-open');
-}
+  // end of filter method
 
   saveEditedValue(candidate: any) {
     // Update the candidate's empId with the edited value

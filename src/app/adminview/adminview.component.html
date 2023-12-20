@@ -14,9 +14,9 @@
   <div class="search-dropdown1" style="display: flex; flex-direction: row; align-items: center;">
     <div class=delete-btn>
       <button class="btn btn-danger" (click)="deleteSelectedCandidates()"
-        [disabled]="selectedCandidates.length === 0">Delete Selected</button>
+        [disabled]="selectedCandidateEmpId.length === 0">Delete Selected</button>
       <button class="btn btn-primary" (click)="editMultipleCandidates()"
-        [disabled]="selectedCandidates.length === 0">Bulk Update</button>
+        [disabled]="selectedCandidateEmpId.length === 0">Bulk Update</button>
       <div *ngIf="editedCandidates.length > 0" class="save-button-container">
         <button type="submit" (click)="saveMultipleCandidates()" class="buttons save-button">Confirm</button>
       </div>
@@ -103,8 +103,8 @@
         <tr>
           <th>
             <div class="headerDiv">
-              <!-- <input type="checkbox" name="selectAll" id="selectAll" (change)="selectUnselectAll($event)"> -->
-              <label for="selectAll">Select</label>
+              <input type="checkbox" name="selectAll" id="selectAll" (change)="selectAll($event)">
+              <!-- <label for="selectAll">Select</label> -->
             </div>
           </th>
           <th>
@@ -231,7 +231,7 @@
           [ngClass]="{'colour-change': candidate.initialBu !== 'Apps NA'}">
           <!-- <td><input type="checkbox" [(ngModel)]="candidate.isSelected"></td> -->
           <td>
-            <input type="checkbox" (change)="deleteCandidate(candidate)" [(ngModel)]="candidate.isSelected">
+            <input type="checkbox" [checked]="this.selectedCandidateEmpId.includes(candidate.empId)" (change)="specificCheck($event,candidate.empId)">
           </td>
           <td><span>{{i + 1}}</span></td>
           <td>
